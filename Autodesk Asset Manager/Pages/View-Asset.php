@@ -16,11 +16,11 @@
                 <a href="#" class="back-button">← Back</a>
                 <div class="asset-display">
                     <div class=asset-title-card>
-                        <h2>Benchy</h2>
+                        <h2>Benchy 2</h2>
                         <div id="titleBuffer"></div>
                     </div>
                     <div class="asset-image">
-                        <img src="\Autodesk Asset Manager\Thumbnails\Benchy.jpeg" alt="Benchy 3D Model">
+                        <img src="..\Thumbnails\Benchy.jpeg" alt="Benchy 3D Model">
                     </div>
                     <div class="status-label">
                         <h3> Status: </h3>
