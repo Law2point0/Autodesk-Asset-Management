@@ -11,6 +11,10 @@
     ?>
     <main>
         <div class="container">
+            <div class="left-panel">
+                <a href="#" class="back-button">← Back</a>
+            </div>
+        </div>
     </main>
 </body>
 </html>
