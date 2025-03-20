@@ -8,6 +8,9 @@
 
 
 <body>
+   <?php
+        include("NavBar.php");
+    ?>
 <div class="container mt-4">
 <h1 class="text-center">Admin Dashboard</h1>
 <div class="row mt-5">
@@ -58,3 +61,5 @@
 </div>
 </div>
 </div>
+</body>
+</html>
