@@ -9,7 +9,8 @@
     <?php
     include ("Navbar.php");
     ?>
-    <div class="container">
-        
+    <main>
+        <div class="container">
+    </main>
 </body>
 </html>
