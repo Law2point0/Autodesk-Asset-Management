@@ -16,7 +16,7 @@
                 <a href="#" class="back-button">← Back</a>
                 <div class="asset-display">
                     <div class=asset-title-card>
-                        <h2>Benchy</h2>
+                        <h2>Benchy 2</h2>
                         <div id="titleBuffer"></div>
                     </div>
                     <div class="asset-image">
