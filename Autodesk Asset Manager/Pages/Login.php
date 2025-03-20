@@ -11,7 +11,7 @@
         include("NavBar.php");
     ?>
     <main>
-        
+        <p> Hello world</p>
     </main>
 </body>
 <footer></footer>
