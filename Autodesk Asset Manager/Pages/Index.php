@@ -7,16 +7,9 @@
     <title>View Asset</title>
 </head>
 <body>
-    <header>
-        <div class="nav-bar">
-            <div class="logo">
-                <img src="\Autodesk Asset Manager\Images\AssetManagerLogo-White.png">
-            </div>
-            <div class="logout">
-                <a href="#">Log Out</a>
-            </div>
-        </div>
-    </header>
+    <?php
+        include("NavBar.php");
+    ?>
     <main>
         <ul>
             <li><a href="Login.php">Login Page</a></li>
