@@ -10,7 +10,7 @@
 <header>
         <div class="nav-bar">
             <div class="logo">
-                <img src="\Autodesk Asset Manager\Images\AssetManagerLogo-White.png">
+                <img src="..\Images\AssetManagerLogo-White.png">
             </div>
             <div class="logout">
                 <a href="#">Log Out</a>
