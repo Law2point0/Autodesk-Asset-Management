@@ -8,6 +8,9 @@
 
 
 <body>
+   <?php
+        include("NavBar.php");
+    ?>
 <div class="container mt-4">
 <h1 class="text-center">Admin Dashboard</h1>
 <div class="row mt-5">
@@ -30,7 +33,7 @@
 <div class="card-body">
 <h5 class="card-title">View assigned projects</h5>
 <p class="card-text">View, add, edit, and delete assigned projects.</p>
-<a href="manageprojects.php" class="btn btn-primary">Go to Manage projects</a>
+<a href="View-Asset.php" class="btn btn-primary">Go to Manage projects</a>
 </div>
 </div>
 </div>
@@ -58,3 +61,5 @@
 </div>
 </div>
 </div>
+</body>
+</html>
