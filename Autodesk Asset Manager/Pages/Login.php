@@ -50,7 +50,7 @@ button:hover {
 <?php
         include("Navbar-login.php");
     ?>
-
+    <img src="Autodesk Asset Manager\Images\AssestManagerWhiteBackground.png" alt="Autodesk logo">
     <h1 class="center-n-large-h">Log in</h1>
  
 
@@ -58,7 +58,7 @@ button:hover {
 
     <div class="containerLG">
         <label for="uname"><b>Username</b></label>
-        
+
         <input type="text"  id="username" placeholder="Enter Username" name="uname" required>
         <label for="psw"><b>Password</b></label>
 
