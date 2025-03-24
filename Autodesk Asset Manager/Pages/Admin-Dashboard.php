@@ -9,7 +9,20 @@
 </head>
 <body>
 
-<?php include("NavBar.php"); ?>
+<body>
+    <?php
+    include ("Navbar.php");
+    ?>
+    <main>
+        <div class="container">
+            <div class="left-panel">
+                <a href="#" class="back-button">← Back</a>
+            </div>
+        </div>
+    </main>
+</body>
+
+
 
 <div class="container mt-4">
 <h1 class="text-center">Admin Dashboard</h1>
@@ -56,4 +69,3 @@
 </div>
 </body>
 </html>
-
