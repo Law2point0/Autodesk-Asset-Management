@@ -43,6 +43,14 @@
                 tbody tr:last-of-type {
                   border-bottom: 2px solid skyblue;
                 }
+                .table-container {
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+
+                    max-width: 1300px; 
+                    margin: 0 auto; 
+                }
 
     </style>
     <meta charset="UTF-8">
@@ -55,7 +63,9 @@
         include("NavBar.php");
     ?>
     <main>
-        <div class="container">
+        <a href="javascript:history.back()" class="back-button">← Back</a>
+        <div class="table-container">
+            <div style="overflow-x:auto;">
             <table>
                 <tr>
                     <th>Asset ID</th>
@@ -67,6 +77,7 @@
                     <th>Last Updated</th>
                     <th>Uploaded By</th>
                     <th>Upload Date</th>
+                    <th>Action</th>
                     
                 </tr>
 
@@ -80,8 +91,10 @@
                     <td>20/03/2025</td>
                     <td>Myles Bradley</td>
                     <td>17/03/2025</td>
+                    <td> <a href='View-Asset.php'> View Asset </a> </td>
                 </tr>
             </table>
+            </div>
 
             <div class="right-panel">
                 <h3>Comments</h3>
