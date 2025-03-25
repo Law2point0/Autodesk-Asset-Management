@@ -41,8 +41,20 @@ button:hover {
 /* Add padding to containers */
 .containerLG {
   padding: 16px;
+  padding-left: 100px;
+  padding-right: 100px;
 }
     
+.centered {
+    text-align: center;
+}
+
+.center-img {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 300px; 
+}
     </style>
 </head>
 <body>
@@ -50,9 +62,10 @@ button:hover {
 <?php
         include("Navbar-login.php");
     ?>
-    <img src="Autodesk Asset Manager\Images\AssestManagerWhiteBackground.png" alt="Autodesk logo">
-    <h1 class="center-n-large-h">Log in</h1>
- 
+    <div class="centered">
+    <img class="center-img" src="..\Images\AssestManagerWhiteBackground.png" alt="Autodesk logo">
+    <h1>Log in</h1>
+    </div>
 
     <form class="formLG" action="" method="post">
 
