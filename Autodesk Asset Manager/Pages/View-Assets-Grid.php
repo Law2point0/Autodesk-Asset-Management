@@ -107,6 +107,11 @@
           align-self: flex-start;
           height: 80%;
          }
+
+         main {
+          padding-left: 30px;
+          padding-right: 30px;
+         }
     </style>
 </head>
 <body>
