@@ -60,52 +60,53 @@
         }
 
         .right-lock {
-        display: flex;
-        justify-content: right;
-        align-items: right;
-        height: 30px;
+          display: flex;
+         justify-content: flex-end;
+         align-items: center;
         }
-
+      
         .blue-banner {
-        display: flex;
-        align-items: center; 
-        padding: 0;
+        display: grid;
+        grid-template-columns: auto 1fr auto; /* Three sections: left, center, right */
+        align-items: center;
+        padding: 0 10px;
         height: 40px;
         background-color: #3977B0;
-        width: 100%; /* Ensure it spans the container */
-        }
+        width: 100%;
+        position: relative;
+      }
 
 
         .white-bold-center {
           font-weight: bold;
           color: white;
           position: absolute;
-          left: 30%;
+          left: 50%;
           transform: translateX(-50%);
-          margin: 0; /* Remove default margins */
+          margin: 0; 
           }
 
-        .black-banner{
+          .black-banner {
           background-color: black;
           color: white;
           font-weight: bold;
           display: flex;
           align-items: center;
-          padding: 0 10px;
-          height: 80%;
-          align-self: flex-start; 
-        }
+          padding: 0 10px; 
+          height: 100%; 
+          position: relative;
+          right: 10%;
+
+          }
 
         .Half-triangle {
           height: 0;
-          margin: 0;
-          border: 0;
-          border-left: 40px solid black; 
-          border-bottom: 30px solid transparent; 
+          border-left: 50px solid black; 
+          border-bottom: 40px solid transparent; 
           border-top: 0px solid transparent; 
           display: inline-block;
           align-self: flex-start;
-          height: 80%;
+          margin-left: -13px;
          }
 
          main {
@@ -134,12 +135,13 @@
       <div class="Half-triangle">
       </div> 
        <h3 class="white-bold-center"> Assets </h3>
+       <div class="right-lock"> <input type="text" placeholder="Search by title..."> </div>
     </div>
     <div class="table-container">
     <div class="row">
 
 <div class="gallery">
-  <a target="_blank" href="">
+  <a href='View-Asset.php'>
   <img src="..\Thumbnails\Benchy.jpeg" alt="Benchy 3D Model" width="300" height="200"> 
   <div class="desc">Benchy 2.obj</div>
   </a>
@@ -165,17 +167,11 @@
 
         <div class="black-project">
           <h3>Project Details</h3>
-         <div class="right-lock"> <input type="text" placeholder="Search.."> </div>
         </div>
-        <h3>Comments</h3>
-          <input type="text">
-          <div class="actions">
-            <button class="submit-btn">Submit</button>
-          </div>
       </div>
 
 
     </main>
 </body>
-<footer></footer>
+
 </html>
