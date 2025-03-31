@@ -19,6 +19,7 @@
             <li><a href="View-Assets-List.php">View-Assets-List</a></li>
             <li><a href="View-Asset.php">Asset Page</a></li>
             <li><a href="View-Projects.php">Project Page</a></li>
+            <li><a href="Manage-Projects.php">Manage Projects Page</a></li>
         </ul>     
     </main>
 </body>
