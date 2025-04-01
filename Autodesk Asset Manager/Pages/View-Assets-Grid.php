@@ -59,9 +59,20 @@
           font-weight: bold;
         }
 
+        .upload-button:hover{
+          background-color: #777;
+          color: black;
+        }
+
         .right-lock {
           display: flex;
          justify-content: flex-end;
+         align-items: center;
+        }
+
+        .left-lock{
+          display: flex;
+         justify-content: flex-start;
          align-items: center;
         }
       
@@ -123,6 +134,10 @@
     <button class="upload-button"> Upload </button>
     </div>
 
+    <div class="left-lock">
+    <a href="http://localhost/Autodesk-Asset-Management/Autodesk%20Asset%20Manager/Pages/View-Assets-List.php"><button class="upload-button">Switch to list view</button></a>
+    </div>
+
 
 
     <main>
@@ -168,6 +183,13 @@
         <div class="black-project">
           <h3>Project Details</h3>
         </div>
+        <h3>Comments</h3>
+        <input type="text">
+        <div class="actions">
+          <button class="submit-btn">Submit</button>
+        </div>
+
+
       </div>
 
 
