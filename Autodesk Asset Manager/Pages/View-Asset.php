@@ -13,7 +13,7 @@
     <main>
         <div class="container">
             <div class="left-panel">
-                <a href="#" class="back-button">← Back</a>
+                <a href="View-Assets-Grid.php" class="back-button">← Back</a>
                 <div class="asset-display">
                     <div class=asset-title-card>
                         <h2>Benchy 2</h2>
