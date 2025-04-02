@@ -126,7 +126,7 @@ function insertData($db){
         ('Editor', 'hashed_password_3', 'Alice', 'Johnson', 'alice.johnson@example.com');
 
         INSERT INTO 'Project' (ProjectID, ProjectName, ProjectDescription, ProjectManager) VALUES
-        (1, 'Website Redesign', 'A complete overhaul of the website', 1),
+        (1, 'Ocean', 'Ocean themed assets for the sea people', 1),
         (2, 'Marketing Campaign', 'Digital marketing push for product launch', 2);
 
         INSERT INTO 'Assignment' (ProjectID, UserID, AccessLevel) VALUES
@@ -135,8 +135,9 @@ function insertData($db){
         (2, 3, 'Editor');
 
         INSERT INTO 'Assets' (AssetName, LastUpdated, Uploader, UploadDate, Dimensions, AssetFile, License, Version, Status, Thumbnail) VALUES
-        ('Homepage Banner', '2025-03-01', 'John Doe', '2025-02-28', '1920x1080', x'FFD8FFE0', x'00010203', 1, 'Approved', 'thumbnail1.jpg'),
-        ('Logo Update', '2025-02-20', 'Jane Smith', '2025-02-19', '500x500', x'FFD8FFE1', x'00040506', 2, 'Pending', 'thumbnail2.jpg');
+        ('Benchy', '2025-03-01', 'Myles Bradley', '2025-01-15', '1920x1080', x'FFD8FFE0', x'00010203', 1, 'Approved', 'thumbnail1.jpg'),
+        ('Benchy', '2025-03-01', 'Myles Bradley', '2025-02-28', '1920x1080', x'FFD8FFE0', x'00010203', 1, 'Approved', 'thumbnail1.jpg'),
+        ('Buoy', '2025-02-20', 'Jane Smith', '2025-02-19', '500x500', x'FFD8FFE1', x'00040506', 2, 'Pending', 'thumbnail2.jpg');
 
         INSERT INTO 'Tags' (TagID, TagName, AssetID) VALUES
         (1, 'Marketing', 1),

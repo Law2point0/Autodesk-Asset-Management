@@ -139,10 +139,12 @@
     <div class="row">
 
 <div class="gallery">
-  <a target="_blank" href="">
-  <img src="..\Thumbnails\Benchy.jpeg" alt="Benchy 3D Model" width="300" height="200"> 
-  <div class="desc">Benchy 2.obj</div>
-  </a>
+  <form action="">
+    <a type= "submit" target="" href="View-Asset.php?assetName=Benchy">
+    <img src="..\Thumbnails\Benchy.jpeg" alt="Benchy 3D Model" width="300" height="200">
+    <div class="desc">Benchy 2.obj</div>
+    </a>
+  </form>
 </div>
 
 <div class="gallery">

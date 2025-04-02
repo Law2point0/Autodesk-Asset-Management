@@ -38,15 +38,18 @@ header {
 /**--------------main----------------**/
 main {
     display: flex;
+    flex-direction: column;
     margin: 20px;
 }
 
 
-.container {
+.panel-container {
     display: flex;
     justify-content: space-between;
-    align-items: center;
-
+    
+    align-items: stretch;
+    height: 65vh;
+    max-height: 70vh;
     max-width: 1200px; 
     margin: 0 auto; 
 }
@@ -92,7 +95,7 @@ main {
 .asset-title-card div{
     width: 100%;
     height: 15px;
-    background-color: #00d885;  
+    background-color: #3977B0;  
 }
 
 .asset-image img {
@@ -104,7 +107,7 @@ main {
 
 .status-label{
     border-radius: 0px;
-    background-color: #00d885;
+    background-color: #3977B0;
     display: flex;
     justify-content: space-between;
     padding: 8px;
@@ -214,7 +217,8 @@ footer {
     width: 100%;
     height: 100%;
 }
- table {
+
+table {
     width: 100%;
     border-collapse: collapse;
     margin: 25px 0;
@@ -251,6 +255,7 @@ footer {
         tbody tr:last-of-type {
           border-bottom: 2px solid skyblue;
         }
+
         .table-container {
             display: flex;
             justify-content: space-between;
