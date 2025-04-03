@@ -68,46 +68,45 @@ button:hover {
     </div>
 
     <form class="formLG" action="" method="post">
-
     <div class="containerLG">
-        <label for="uname"><b>Username</b></label>
+        <label for="Email"><b>Email</b></label>
+        <input type="text" id="Email" placeholder="Enter Email" name="Email" required>
 
-        <input type="text"  id="username" placeholder="Enter Username" name="uname" required>
-        <label for="psw"><b>Password</b></label>
+        <label for="password"><b>Password</b></label>
+        <input type="password" id="password" placeholder="Enter Password" name="Password" required>
 
-        <input type="password" id="password" placeholder="Enter Password" name="psw" required>
         <button type="submit" value="Log In" class="Loginbutton">Login</button>
     </div>
-
     </form>
+
 
 
  <?php /*
 session_start(); // Start session
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $inputUsername = $_POST['uname'];
-    $inputPassword = $_POST['psw'];
+    $inputEmail = $_POST['Email'];
+    $inputPassword = $_POST['Password'];
 
-    $db = new SQLite3('Hospital.db');
+    $db = new SQLite3('Autodesk_database_2.db');
 
     if (!$db) {
         die("Database connection failed");
     }
 
     // Fetch user details based on the provided username
-    $query = "SELECT * FROM Account_info WHERE Username = :UserName";
+    $query = "SELECT * FROM User WHERE Email = :Email";
     $stmt = $db->prepare($query);
-    $stmt->bindValue(':UserName', $inputUsername, SQLITE3_TEXT);
+    $stmt->bindValue(':Email', $inputEmail, SQLITE3_TEXT);
     $result = $stmt->execute();
 
     if ($result && $row = $result->fetchArray(SQLITE3_ASSOC)) {
         // Directly compare plain text password
         if ($inputPassword === $row['Password']) {
             // Store User ID in session for authentication
-            $_SESSION['Accountid'] = $row['AccountID'];
-            $_SESSION['username'] = $row['UserName'];
-            $_SESSION['clearance'] = $row['ClearanceLevel'];
+            $_SESSION['Userid'] = $row['UserID'];
+            $_SESSION['Email'] = $row['Email'];
+            $_SESSION['AccessLevel'] = $row['AccessLevel'];
             
 
             // Redirect user based on clearance level
@@ -128,10 +127,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     echo "<p style='color:red; text-align:center;'>Access Denied: Invalid Clearance.</p>";
             }
         } else {
-            echo "<p style='color:red; text-align:center;'>Invalid username or password. Please try again.</p>";
+            echo "<p style='color:red; text-align:center;'>Invalid Email or password. Please try again.</p>";
         }
     } else {
-        echo "<p style='color:red; text-align:center;'>Invalid username or password. Please try again.</p>";
+        echo "<p style='color:red; text-align:center;'>Invalid Email or password. Please try again.</p>";
     }
     $db->close();
 }*/
