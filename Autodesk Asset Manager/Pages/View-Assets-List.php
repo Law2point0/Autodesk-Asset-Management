@@ -1,6 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <style>
+        .upload-button{
+          color: white;
+          background-color: black;
+          font-size: 16px;
+          padding: 7px 32px;
+          font-weight: bold;
+        }
+
+        .right-lock {
+        display: flex;
+        justify-content: right;
+        align-items: right;
+        height: 30px;
+        }
+    </style>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
@@ -10,6 +26,9 @@
     <?php
         include("NavBar.php");
     ?>
+    <div class="right-lock">
+    <button class="upload-button"> Upload </button>
+    </div>
     <main>
         <a href="javascript:history.back()" class="back-button">← Back</a>
         <div class="table-container">
