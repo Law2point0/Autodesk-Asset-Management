@@ -39,9 +39,11 @@
                 tbody tr:last-of-type {
                   border-bottom: 2px solid skyblue;
                 }
+
     </style>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
     <title>View Projects</title>
 </head>
 <body>
@@ -65,15 +67,14 @@
                     $ProjectDescription= $row['ProjectDescription'];
                     $ProjectManager= $row['ProjectManager'];
                     echo "<tr>
-                            <td>$ProjectID</td>
+                            <td><h1>$ProjectID</h1></td>
                             <td>$ProjectName</td>
                             <td>$ProjectDescription</td>
                             <td>$ProjectManager</td>
                             <td>
-                                    <a href='View-Assets-list.php'>
-                                        <button class='submit-btn'>view</button>
-                                    </a>
-                                
+                                <a href='View-Assets-list.php'>
+                                    <button class='submit-btn'>view</button>
+                                </a>                                
                             </td>
                         </tr>";
                 }
