@@ -46,12 +46,11 @@ main {
 .panel-container {
     display: flex;
     justify-content: space-between;
-    
     align-items: stretch;
-    height: 65vh;
-    max-height: 70vh;
-    max-width: 1200px; 
-    margin: 0 auto; 
+    height: 650px;
+    min-height: 60%;
+    max-width: 1200px;
+    margin: 0 auto;
 }
 
 /**--------------left panel----------------**/
