@@ -10,7 +10,9 @@
 <header>
         <div class="nav-bar">
             <div class="logo">
-                <img src="..\Images\AssetManagerLogo-White.png">
+                <a href="index.php">
+                    <img src="..\Images\AssetManagerLogo-White.png" alt="Logo">
+                </a>
             </div>
             <div class="logout">
                 <a href="#">Log Out</a>

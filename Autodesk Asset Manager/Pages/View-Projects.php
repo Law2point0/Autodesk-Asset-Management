@@ -39,9 +39,11 @@
                 tbody tr:last-of-type {
                   border-bottom: 2px solid skyblue;
                 }
+
     </style>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
     <title>View Projects</title>
 </head>
 <body>
@@ -49,30 +51,37 @@
     include ("Navbar.php");
     ?>
     <main>
-        <div class="container">
-            <table>
-                <tr>
-                    <th>Project ID</th>
-                    <th>Project Name</th>
-                    <th>Project Description</th>
-                    <th>Project Manager</th>
-                </tr>
+    <a href="javascript:history.back()" class="back-button">← Back</a>
+       
+        <div>
+            <?php
+                $db = new SQLITE3("Asset-Manager-DB.db");
+                $select_query = "SELECT * FROM Project";
+                $result = $db->query($select_query);
+                echo "<table>";
+                echo "<tr> <th>Project ID</th> <th>Project Name</th> <th>Project Description</th> <th>Project Manager</th> <th> Action </th> </tr>";
 
-                <tr>
-                    <th>1</th>
-                    <th>The Benchy Project</th>
-                    <th>I Love Benchy</th>
-                    <th>John Benchy Project Creator of Benchy Project</th>
-                    <td>
-                    <div class="actions">
-                        <a href="View-Assets-list.php">
-                            <button class="submit-btn">view</button>
-                        </a>
-                    </div>
-                    </td>
-                </tr>
-            </table>
-        </div>
+                while ($row = $result->fetchArray(SQLITE3_ASSOC)) {
+                    $ProjectID=$row['ProjectID'];
+                    $ProjectName= $row['ProjectName'];
+                    $ProjectDescription= $row['ProjectDescription'];
+                    $ProjectManager= $row['ProjectManager'];
+                    echo "<tr>
+                            <td><h1>$ProjectID</h1></td>
+                            <td>$ProjectName</td>
+                            <td>$ProjectDescription</td>
+                            <td>$ProjectManager</td>
+                            <td>
+                                <a href='View-Assets-list.php'>
+                                    <button class='submit-btn'>view</button>
+                                </a>                                
+                            </td>
+                        </tr>";
+                }
+                echo "</table>";
+                $db->close();
+            ?>
+            </div>
     </main>
 </body>
 </html>

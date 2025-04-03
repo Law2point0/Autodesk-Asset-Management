@@ -11,9 +11,9 @@
         include("NavBar.php");
     ?>
     <main>
-        <div class="container">
+        <div class="panel-container">
             <div class="left-panel">
-                <a href="#" class="back-button">← Back</a>
+                <a href="View-Assets-Grid.php" class="back-button">← Back</a>
                 <div class="asset-display">
                     <div class=asset-title-card>
                         <h2>Benchy 2</h2>
@@ -65,12 +65,46 @@
                     <input type="text">
                 </div>
                 <div class="actions">
-                    <button class="download-btn">Download</button>
+                    <button class="download-btn">Upload New Version</button>
+                    <button class="download-btn">Download</button>   
                 </div>
                 <div class="actions">
                     <button class="edit-btn">Edit</button>
                     <button class="delete-btn">Delete</button>
                 </div>
+            </div>
+        </div>
+        <div style="display: flex ; justify-content: center; align-items: center; margin-top: 20px;">
+            <div class="asset-history">
+                <h3>Asset History</h3>
+
+                <?php
+                    // Check if the asset name is set in the URL
+                    if (isset($_GET['assetName'])) {
+                        $assetName = $_GET['assetName'];                       
+                    }
+
+                    $db = new SQLite3('Asset-Manager-DB.db');
+                    $query = "SELECT * FROM Assets Where AssetName = '$assetName'";
+                    $result = $db->query($query);
+
+                    //echo($result);
+
+                    echo"<table class='Asset-History-tb'>";
+                    echo"<tr> <th>Date</th> <th>User</th> <th>Action</th> </tr>";
+
+                    while($row = $result->fetchArray(SQLITE3_ASSOC)){
+                        $uploadDate = $row["UploadDate"];
+                        $uploader = $row["Uploader"];
+
+                        echo "<tr>
+                                <td>$uploadDate</td>
+                                <td>$uploader</td>
+                            </tr>";
+                    }
+                    echo"</table>";
+                    $db->close();
+                ?>
             </div>
         </div>
     </main>

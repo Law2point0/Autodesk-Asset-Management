@@ -31,7 +31,7 @@
 <div class="card text-center">
 <div class="card-body">
 <p class="card-text">Assign an editor.</p>
-<a href="assigneditor.php" class="btn btn-primary">Go to assign</a>
+<a href="Assign-Editors.php" class="btn btn-primary">Go to assign</a>
 </div>
 </div>
 </div>
