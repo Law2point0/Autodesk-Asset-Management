@@ -81,7 +81,7 @@ button:hover {
 
 
 
- <?php /*
+ <?php 
 session_start(); // Start session
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -111,17 +111,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             // Redirect user based on clearance level
             switch ($row['ClearanceLevel']) {
-                case 'Doctor':
-                    header("Location: DocHomepage.php");
-                    exit;
-                case 'Receptionist':
-                    header("Location: ReceptHomepage.php");
-                    exit;
-                case 'Patient':
-                    header("Location: PatHomepage.php");
-                    exit;
                 case 'Admin':
-                    header("Location: AdminHomepage.php");
+                    header("Location: http://localhost/Autodesk-Asset-Management/Autodesk%20Asset%20Manager/Pages/Admin-Dashboard.php");
+                    exit;
+                case 'Manager':
+                    header("Location: http://localhost/Autodesk-Asset-Management/Autodesk%20Asset%20Manager/Pages/Manager-Dashboard.php");
+                    exit;
+                case 'Editor':
+                    header("Location: http://localhost/Autodesk-Asset-Management/Autodesk%20Asset%20Manager/Pages/editor-Dashboard.php");
                     exit;
                 default:
                     echo "<p style='color:red; text-align:center;'>Access Denied: Invalid Clearance.</p>";
@@ -132,8 +129,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     } else {
         echo "<p style='color:red; text-align:center;'>Invalid Email or password. Please try again.</p>";
     }
-    $db->close();
-}*/
+    $db->close(); }
+
 ?> 
 
 </body>
