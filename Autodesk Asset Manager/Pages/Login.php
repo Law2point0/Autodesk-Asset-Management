@@ -82,18 +82,19 @@ button:hover {
 
 
  <?php 
-session_start(); // Start session
+session_start(); 
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $inputEmail = $_POST['Email'];
     $inputPassword = $_POST['Password'];
 
-    $db = new SQLite3('Autodesk_database_2.db');
+    $db = new SQLite3('C:\xampp\htdocs\Autodesk-Asset-Management\Autodesk database_2.db');
 
     if (!$db) {
         die("Database connection failed");
     }
 
+    
     // Fetch user details based on the provided username
     $query = "SELECT * FROM User WHERE Email = :Email";
     $stmt = $db->prepare($query);
@@ -104,13 +105,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // Directly compare plain text password
         if ($inputPassword === $row['Password']) {
             // Store User ID in session for authentication
-            $_SESSION['Userid'] = $row['UserID'];
+            $_SESSION['UserID'] = $row['UserID'];
             $_SESSION['Email'] = $row['Email'];
             $_SESSION['AccessLevel'] = $row['AccessLevel'];
             
 
             // Redirect user based on clearance level
-            switch ($row['ClearanceLevel']) {
+            switch ($row['AccessLevel']) {
                 case 'Admin':
                     header("Location: http://localhost/Autodesk-Asset-Management/Autodesk%20Asset%20Manager/Pages/Admin-Dashboard.php");
                     exit;
@@ -124,11 +125,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     echo "<p style='color:red; text-align:center;'>Access Denied: Invalid Clearance.</p>";
             }
         } else {
-            echo "<p style='color:red; text-align:center;'>Invalid Email or password. Please try again.</p>";
+            echo "<p style='color:red; text-align:center;'> 1 Invalid Email or password. Please try again.</p>";
         }
     } else {
-        echo "<p style='color:red; text-align:center;'>Invalid Email or password. Please try again.</p>";
+        echo "<p style='color:red; text-align:center;'> 2 Invalid Email or password. Please try again.</p>";
     }
+
+
+    
     $db->close(); }
 
 ?> 
