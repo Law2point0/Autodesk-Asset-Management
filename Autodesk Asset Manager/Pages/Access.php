@@ -6,3 +6,9 @@ if (!isset($_SESSION['UserID']) || $_SESSION['AccessLevel'] !== "Admin") {
     exit;
 }
 ?>
+
+<?php 
+session_start();
+$UserID = $_SESSION['UserID'];
+$AccessLevel = $_SESSION['AccessLevel'];
+?>
