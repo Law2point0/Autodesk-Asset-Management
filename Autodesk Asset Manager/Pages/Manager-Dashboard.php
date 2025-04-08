@@ -96,6 +96,7 @@
 <body>
     <?php
         include("NavBar.php");
+        require("Access.php");
     ?>
     <main>
 
