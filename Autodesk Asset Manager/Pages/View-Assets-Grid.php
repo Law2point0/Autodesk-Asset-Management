@@ -167,8 +167,27 @@ $ProjectID = $_SESSION['ProjectID'];
   ON Assets.AssetID = ProjectAssets.AssetID
   WHERE ProjectID = $ProjectID;";
   $result = $db->query($selectQuery);
+  $GalleryDiv = "";
 
 
+ 
+while ($row = $result->fetchArray(SQLITE3_ASSOC)) {
+  $assetName = htmlspecialchars($row['AssetName']);
+  $thumbnail = htmlspecialchars($row['Thumbnail']);
+  
+  $GalleryDiv .= "
+  <div class=\"gallery\">
+      <form action=\"\">
+          <a type=\"submit\" target=\"\" href=\"View-Asset.php?assetName={$assetName}\">
+              <img src=\"..\\Thumbnails\\{$thumbnail}\" alt=\"{$assetName}\" width=\"300\" height=\"200\">
+              <div class=\"desc\">{$assetName}</div>
+          </a>
+      </form>
+  </div>
+  ";
+}
+
+  
   ?>
 
 <div class="gallery">
