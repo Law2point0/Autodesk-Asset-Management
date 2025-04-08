@@ -1,3 +1,9 @@
+<?php
+session_start(); 
+$UserID = $_SESSION['UserID'];
+$AccessLevel = $_SESSION['AccessLevel'];
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -138,7 +144,12 @@
     <a href="http://localhost/Autodesk-Asset-Management/Autodesk%20Asset%20Manager/Pages/View-Assets-List.php"><button class="upload-button">Switch to list view</button></a>
     </div>
 
+    <?php
+    $db = new SQLite3('C:\xampp\htdocs\Autodesk-Asset-Management\Autodesk database_2.db');
+    $selectQuery = "SELECT * FROM Assets";
+    $result = $db->query($selectQuery);
 
+    ?>
 
     <main>
     <a href="javascript:history.back()" class="back-button">← Back</a>
