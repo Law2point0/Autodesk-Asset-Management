@@ -265,7 +265,12 @@ table {
         }
 
         .submit-btn{
-            background-color: red;
+            color: white;
+            background-color: #007bff;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+
         }
 
 /**!!!!!-----------Table style------------!!!!!**/
