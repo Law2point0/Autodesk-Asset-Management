@@ -12,23 +12,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["assign_editor"])) {
     $stmt->bind_param("si", $project_name, $member_id);
     $stmt->execute();
 
+    $db_file = 'Autodesk database_2.db'; 
 
-
-<?php
-
-$db_file = 'Autodesk database_2.db'; 
-
-try {
+    try {
     
-    $conn = new SQLite3($db_file);
+        $conn = new SQLite3($db_file);
     
-    $conn->exec('PRAGMA foreign_keys = ON;');
-    echo "Connected successfully to the database.";
-} catch (Exception $e) {
-die("Connection failed: " . $e->getMessage());
-}
-?>
-}
+        $conn->exec('PRAGMA foreign_keys = ON;');
+        echo "Connected successfully to the database.";
+    } catch (Exception $e) {
+    die("Connection failed: " . $e->getMessage());
+    }
+    } ?>
 
 
 if (isset($_GET["remove_id"])) {

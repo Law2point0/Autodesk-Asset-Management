@@ -211,6 +211,20 @@ footer {
     text-align: center;
 }
 
+/* ----------------------view assets grid css----------------------- */
+
+.upload-button{
+    color: white;
+    background-color: black;
+    font-size: 16px;
+    padding: 7px 32px;
+    font-weight: bold;
+  }
+
+.upload-button:hover{
+    background-color: #777;
+    color: black;
+  }
 /**--------------Table style----------------**/
 .Thumbnail img {
     width: 100%;
