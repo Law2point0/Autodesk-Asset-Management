@@ -59,26 +59,29 @@ session_start();
         <div>
             <?php
                 $db = new SQLITE3("Asset-Manager-DB.db");
-                $select_query = "SELECT * FROM Project";
+                $UserID = 1;/*$_SESSION['UserID'];*/
+                $select_query = "SELECT * FROM Assignment LEFT JOIN Project ON Assignment.ProjectID = Project.ProjectID WHERE Assignment.USERID = $UserID";
                 $result = $db->query($select_query);
                 echo "<table>";
-                echo "<tr> <th>Project ID</th> <th>Project Name</th> <th>Project Description</th> <th>Project Manager</th> <th> Action </th> </tr>";
+                echo "<tr> <th>Project ID</th> <th>Project Name</th> <th>Project Description</th> <th>Project Manager</th> <th> Action </th> <th> Session Project ID </th></tr>";
 
                 while ($row = $result->fetchArray(SQLITE3_ASSOC)) {
                     $ProjectID=$row['ProjectID'];
                     $ProjectName= $row['ProjectName'];
                     $ProjectDescription= $row['ProjectDescription'];
                     $ProjectManager= $row['ProjectManager'];
+                    $ProjectID2=$_SESSION['ProjectID'];
                     echo "<tr>
                             <td><h1>$ProjectID</h1></td>
                             <td>$ProjectName</td>
                             <td>$ProjectDescription</td>
                             <td>$ProjectManager</td>
                             <td>
-                                <a href='View-Assets-list.php'>
+                                <a href='set-project-id.php?ProjectID=$ProjectID'>
                                     <button class='submit-btn'>view</button>
                                 </a>                                
                             </td>
+                            <td>$ProjectID2</td>
                         </tr>";
                 }
                 echo "</table>";
