@@ -11,4 +11,10 @@ if (!isset($_SESSION['UserID']) || $_SESSION['AccessLevel'] !== "Admin") {
 session_start();
 $UserID = $_SESSION['UserID'];
 $AccessLevel = $_SESSION['AccessLevel'];
+$ProjectID = $_SESSION['ProjectID']; /* if your page neeeds a projectID*/
+?>
+
+<?php
+
+
 ?>

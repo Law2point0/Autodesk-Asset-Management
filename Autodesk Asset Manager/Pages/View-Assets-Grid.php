@@ -2,6 +2,7 @@
 session_start(); 
 $UserID = $_SESSION['UserID'];
 $AccessLevel = $_SESSION['AccessLevel'];
+$ProjectID = $_SESSION['ProjectID'];
 ?>
 
 <!DOCTYPE html>
@@ -144,13 +145,6 @@ $AccessLevel = $_SESSION['AccessLevel'];
     <a href="http://localhost/Autodesk-Asset-Management/Autodesk%20Asset%20Manager/Pages/View-Assets-List.php"><button class="upload-button">Switch to list view</button></a>
     </div>
 
-    <?php
-    $db = new SQLite3('C:\xampp\htdocs\Autodesk-Asset-Management\Autodesk database_2.db');
-    $selectQuery = "SELECT * FROM Assets";
-    $result = $db->query($selectQuery);
-
-    ?>
-
     <main>
     <a href="javascript:history.back()" class="back-button">← Back</a>
     <div style="overflow-x:auto;">
@@ -165,6 +159,36 @@ $AccessLevel = $_SESSION['AccessLevel'];
     </div>
     <div class="table-container">
     <div class="row">
+
+  <?php
+  $db = new SQLite3('C:\xampp\htdocs\Autodesk-Asset-Management\Autodesk database_2.db');
+  $selectQuery = "SELECT * FROM Assets
+  FULL OUTER JOIN ProjectAssets
+  ON Assets.AssetID = ProjectAssets.AssetID
+  WHERE ProjectID = $ProjectID;";
+  $result = $db->query($selectQuery);
+  $GalleryDiv = "";
+
+
+ 
+while ($row = $result->fetchArray(SQLITE3_ASSOC)) {
+  $assetName = htmlspecialchars($row['AssetName']);
+  $thumbnail = htmlspecialchars($row['Thumbnail']);
+  
+  $GalleryDiv .= "
+  <div class=\"gallery\">
+      <form action=\"\">
+          <a type=\"submit\" target=\"\" href=\"View-Asset.php?assetName={$assetName}\">
+              <img src=\"..\\Thumbnails\\{$thumbnail}\" alt=\"{$assetName}\" width=\"300\" height=\"200\">
+              <div class=\"desc\">{$assetName}</div>
+          </a>
+      </form>
+  </div>
+  ";
+}
+
+  
+  ?>
 
 <div class="gallery">
   <form action="">
