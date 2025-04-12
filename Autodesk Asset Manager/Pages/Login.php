@@ -119,7 +119,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     header("Location: http://localhost/Autodesk-Asset-Management/Autodesk%20Asset%20Manager/Pages/Manager-Dashboard.php");
                     exit;
                 case 'Editor':
-                    header("Location: http://localhost/Autodesk-Asset-Management/Autodesk%20Asset%20Manager/Pages/editor-Dashboard.php");
+                    header("Location: http://localhost/Autodesk-Asset-Management/Autodesk%20Asset%20Manager/Pages/view-projects.php");
                     exit;
                 default:
                     echo "<p style='color:red; text-align:center;'>Access Denied: Invalid Clearance.</p>";
