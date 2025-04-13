@@ -1,3 +1,7 @@
+<?php
+    session_start();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -33,34 +37,65 @@
         <a href="javascript:history.back()" class="back-button">← Back</a>
         <div class="table-container">
             <div style="overflow-x:auto;">
+            <?php
+            $db = new SQLITE3('Asset-Manager-DB.db');
+            $UserID = 1;/*$_SESSION['UserID'];*/
+            $ProjectID = $_SESSION['ProjectID'];
+            if ($db) {
+                echo 'db connected successfully';
+            }
+            else {
+                echo 'db not connected';
+            }
+            $select_query = "SELECT * FROM Assets 
+            LEFT JOIN ProjectAssets ON Assets.AssetID = ProjectAssets.AssetID
+            WHERE ProjectAssets.ProjectID = $ProjectID;";
+            $result = $db->query($select_query);
+
+            echo"
             <table>
                 <tr>
                     <th>Asset ID</th>
                     <th>Thumbnail</th>
                     <th>Asset Name</th>
                     <th>Status</th>
-                    <th>Dimensions(Height, Width, Depth (cm))</th>
+                    <th>Dimensions(Quality)</th>
                     <th>Version</th>
                     <th>Last Updated</th>
                     <th>Uploaded By</th>
                     <th>Upload Date</th>
                     <th>Action</th>
                     
-                </tr>
+                </tr>";
 
-                <tr>
-                    <td>1</td>
-                    <td class="Thumbnail"><img src="..\Thumbnails\Benchy.jpeg" alt="Benchy 3D Model"></td>
-                    <td>Benchy 2</td>
-                    <td>In Progress</td>
-                    <td>5x7x4</td>
-                    <td>1</td>
-                    <td>20/03/2025</td>
-                    <td>Myles Bradley</td>
-                    <td>17/03/2025</td>
-                    <td> <a href='View-Asset.php'> View Asset </a> </td>
-                </tr>
-            </table>
+                while ($row = $result->fetchArray(SQLITE3_ASSOC)) {
+                    $AssetID = $row['AssetID'];
+                    $Thumbnail = $row['Thumbnail'];
+                    $AssetName = $row['AssetName'];
+                    $Status = $row['Status'];
+                    $Dimensions = $row['Dimensions'];
+                    $Version = $row['Version'];
+                    $LastUpdated = $row['LastUpdated'];
+                    $UploadedBy = $row['Uploader'];
+                    $UploadDate = $row['UploadDate'];
+
+                    echo"<tr>
+                            <td>$AssetID</td>
+                            <td>$Thumbnail</td>
+                            <td>$AssetName</td>
+                            <td>$Status</td>
+                            <td>$Dimensions</td>
+                            <td>$Version</td>
+                            <td>$LastUpdated</td>
+                            <td>$UploadedBy</td>
+                            <td>$UploadDate</td>
+                            <div class='actions'>
+                                <td> <input class='submit-btn' type='submit' value='View Asset'> <!--<a href='View-Asset.php'> View Asset </a>--> </td>
+                            </div>
+                    </tr>";
+                } 
+                echo"</table>";
+            ?>
             </div>
 
             <div class="right-panel">
