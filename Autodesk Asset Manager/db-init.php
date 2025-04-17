@@ -136,10 +136,17 @@ function insertData($db){
         (1, 2, 'Manager'),
         (2, 3, 'Editor');
 
+<<<<<<< HEAD
         INSERT INTO 'Assets' (BaseID, LastUpdated, Uploader, UploadDate, Dimensions, AssetFile, License, Version, Status, Thumbnail) VALUES
         (1, '2025-01-15', 'Myles Bradley', '2025-01-15', '1920x1080', x'FFD8FFE0', x'00010203', 1, 'Approved', 'thumbnail1.jpg'),
         (1, '2025-02-28', 'Myles Bradley', '2025-02-28', '1920x1080', x'FFD8FFE0', x'00010203', 2, 'Approved', 'thumbnail2.jpg'),
         (2, '2025-02-19', 'Jane Smith', '2025-02-19', '500x500', x'FFD8FFE1', x'00040506', 1, 'Pending', 'thumbnail3.jpg');
+=======
+        INSERT INTO Assets (BaseID, LastUpdated, Uploader, UploadDate, Dimensions, AssetFile, License, Version, Status, Thumbnail) VALUES
+        (1, '2025-01-15', 'Myles Bradley', '2025-01-15', '1920x1080', x'FFD8FFE0', x'00010203', 1, 'Approved', 'Benchy.jpeg'),
+        (1, '2025-02-28', 'Myles Bradley', '2025-02-28', '1920x1080', x'FFD8FFE0', x'00010203', 2, 'Approved', 'Benchy.jpeg'),
+        (2, '2025-02-19', 'Jane Smith', '2025-02-19', '500x500', x'FFD8FFE1', x'00040506', 1, 'Pending', 'thumbnail2.jpg');
+>>>>>>> e0c748c7ac6d0027b65e596f71c01fb900af4f52
 
         INSERT INTO 'AssetBase' (AssetName) VALUES
         ('Benchy'),
