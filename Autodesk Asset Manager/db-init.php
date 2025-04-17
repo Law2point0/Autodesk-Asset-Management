@@ -15,9 +15,6 @@ function generateDB($db)
     }
 }
 
-
-
-
 function generateTables($db){
     try {
         $pdo = new PDO("sqlite:" . $db);
@@ -32,19 +29,19 @@ function generateTables($db){
             FOREIGN KEY("AssetID") REFERENCES "Assets"("AssetID")
         );
 
-        CREATE TABLE "Assets" ( 
+        CREATE TABLE "Assets" (
             "AssetID" INTEGER PRIMARY KEY AUTOINCREMENT,
             "BaseID" INTEGER NOT NULL,
-            "LastUpdated" TEXT,
             "Uploader" TEXT NOT NULL,
             "UploadDate" DATE NOT NULL,
+            "LastUpdated" TEXT,
             "Dimensions" TEXT NOT NULL,
             "AssetFile" BLOB NOT NULL,
             "License" BLOB,
             "Version" INTEGER NOT NULL,
             "Status" TEXT,
             "Thumbnail" TEXT NOT NULL,
-            FOREIGN KEY("BaseID") REFERENCES "AssetBase"("BaseID")
+            FOREIGN KEY("BaseID") REFERENCES "AssetBase"("BaseID") ON DELETE CASCADE
         );
 
         CREATE TABLE "AssetBase" (
@@ -87,10 +84,10 @@ function generateTables($db){
         );
 
         CREATE TABLE "ProjectAssets" (
-            "AssetID"	INTEGER NOT NULL,
-            "ProjectID"	INTEGER NOT NULL,
-            PRIMARY KEY("AssetID","ProjectID"),
-            FOREIGN KEY("AssetID") REFERENCES "Assets"("AssetID") ON UPDATE CASCADE,
+            "BaseID" INTEGER NOT NULL,
+            "ProjectID" INTEGER NOT NULL,
+            PRIMARY KEY("BaseID", "ProjectID"),
+            FOREIGN KEY("BaseID") REFERENCES "AssetBase"("BaseID") ON UPDATE CASCADE,
             FOREIGN KEY("ProjectID") REFERENCES "Project"("ProjectID") ON UPDATE CASCADE
         );
 
@@ -102,7 +99,7 @@ function generateTables($db){
         );
 
         CREATE TABLE "User" (
-            "UserID"	INTEGER,
+            "UserID" INTEGER,
             "AccessLevel" TEXT NOT NULL,
             "Password" TEXT NOT NULL,
             "FName"	TEXT NOT NULL,
@@ -139,12 +136,12 @@ function insertData($db){
         (1, 2, 'Manager'),
         (2, 3, 'Editor');
 
-        INSERT INTO Assets (BaseID, LastUpdated, Uploader, UploadDate, Dimensions, AssetFile, License, Version, Status, Thumbnail) VALUES
+        INSERT INTO 'Assets' (BaseID, LastUpdated, Uploader, UploadDate, Dimensions, AssetFile, License, Version, Status, Thumbnail) VALUES
         (1, '2025-01-15', 'Myles Bradley', '2025-01-15', '1920x1080', x'FFD8FFE0', x'00010203', 1, 'Approved', 'thumbnail1.jpg'),
-        (1, '2025-02-28', 'Myles Bradley', '2025-02-28', '1920x1080', x'FFD8FFE0', x'00010203', 2, 'Approved', 'thumbnail1.jpg'),
-        (2, '2025-02-19', 'Jane Smith', '2025-02-19', '500x500', x'FFD8FFE1', x'00040506', 1, 'Pending', 'thumbnail2.jpg');
+        (1, '2025-02-28', 'Myles Bradley', '2025-02-28', '1920x1080', x'FFD8FFE0', x'00010203', 2, 'Approved', 'thumbnail2.jpg'),
+        (2, '2025-02-19', 'Jane Smith', '2025-02-19', '500x500', x'FFD8FFE1', x'00040506', 1, 'Pending', 'thumbnail3.jpg');
 
-        INSERT INTO AssetBase (AssetName) VALUES
+        INSERT INTO 'AssetBase' (AssetName) VALUES
         ('Benchy'),
         ('Buoy');
 
@@ -158,15 +155,17 @@ function insertData($db){
 
         INSERT INTO 'Comment' (UserID, Comment, Date) VALUES
         (1, 'Looks great! Ready for approval.', '2025-03-02'),
-        (2, 'Needs a slight color change.', '2025-02-21');
+        (2, 'Needs a slight color change.', '2025-02-21'); -- Fixed semicolon here
 
         INSERT INTO 'AssetComments' (CommentID, AssetID) VALUES
         (1, 1),
         (2, 1);
 
-        INSERT INTO 'ProjectAssets' (AssetID, ProjectID) VALUES
+        INSERT INTO 'ProjectAssets' (BaseID, ProjectID) VALUES
         (1, 1),
-        (2, 1);";
+        (2, 1),
+        (1, 2);
+        ";
 
         $pdo->exec($sql);
         echo "Data inserted successfully.<br>";

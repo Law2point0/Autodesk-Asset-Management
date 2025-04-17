@@ -52,9 +52,6 @@
     directionalLight.position.set(5, 5, 5);
     scene.add(directionalLight);
 
-    // Controls (optional, for better viewing)
-    const controls = new OrbitControls(camera, renderer.domElement);
-    controls.enableDamping = true;
 
     // Loaders
     const gltfLoader = new GLTFLoader();
@@ -122,9 +119,29 @@
 
     saveThumbnail(thumbnailDataURL);
     }
-  }
-  
+    function saveThumbnail(dataURL) {
+      const modelName = 'Large Rock';
+      fetch('save-thumbnail.php', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ 
+          image: dataURL,
+          name: modelName,
+        }),
+      })
+        .then((response) => response.text())
+        .then((data) => {
+          console.log('Thumbnail saved successfully:', data);
+        })
+        .catch((error) => {
+          console.error('Error saving thumbnail:', error);
+        });
+    }
+
   loadModel('../Assets/rock/Rock Large.glb');
+
   </script>
 </body>
 </html>
