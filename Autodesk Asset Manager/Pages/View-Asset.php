@@ -65,11 +65,10 @@
                     <input type="text">
                 </div>
                 <div class="actions">
-                    <button class="download-btn">Upload New Version</button>
+                    <a href="Upload-New-Version.php"><button class="download-btn">Upload</button></a>
                     <button class="download-btn">Download</button>   
                 </div>
                 <div class="actions">
-                    <button class="edit-btn">Edit</button>
                     <button class="delete-btn">Delete</button>
                 </div>
             </div>
@@ -77,7 +76,6 @@
         <div style="display: flex ; justify-content: center; align-items: center; margin-top: 20px;">
             <div class="asset-history">
                 <h3>Asset History</h3>
-
                 <?php
                     // Check if the asset name is set in the URL
                     if (isset($_GET['assetName'])) {
