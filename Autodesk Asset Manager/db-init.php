@@ -140,7 +140,7 @@ function insertData($db){
         (2, 3, 'Editor');
 
         INSERT INTO Assets (BaseID, LastUpdated, Uploader, UploadDate, Dimensions, AssetFile, License, Version, Status, Thumbnail) VALUES
-        (1, '2025-01-15', 'Myles Bradley', '2025-01-15', '1920x1080', x'FFD8FFE0', x'00010203', 1, 'Approved', 'thumbnail1.jpg'),
+        (1, '2025-01-15', 'Myles Bradley', '2025-01-15', '1920x1080', x'FFD8FFE0', x'00010203', 1, 'Approved', 'Benchy.jpeg'),
         (1, '2025-02-28', 'Myles Bradley', '2025-02-28', '1920x1080', x'FFD8FFE0', x'00010203', 2, 'Approved', 'thumbnail1.jpg'),
         (2, '2025-02-19', 'Jane Smith', '2025-02-19', '500x500', x'FFD8FFE1', x'00040506', 1, 'Pending', 'thumbnail2.jpg');
 
