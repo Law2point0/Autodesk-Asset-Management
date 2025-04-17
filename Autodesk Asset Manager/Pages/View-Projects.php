@@ -1,6 +1,11 @@
 <!DOCTYPE html>
 <?php
 session_start();
+if (!isset($_SESSION['UserID'])) {
+    // Redirect back to login page if no session is found or Access is wrong. Replace the "Admin" with whatever is appropriate for the page.
+    header("Location: http://localhost/Autodesk-Asset-Management/Autodesk%20Asset%20Manager/Pages/Login.php");
+    exit;
+}
 ?>
 <html lang="en">
 <head>
@@ -59,7 +64,7 @@ session_start();
         <div>
             <?php
                 $db = new SQLITE3("Asset-Manager-DB.db");
-                $UserID = 1;/*$_SESSION['UserID'];*/
+                $UserID = 3;/*$_SESSION['UserID'];*/
                 $select_query = "SELECT * FROM Assignment LEFT JOIN Project ON Assignment.ProjectID = Project.ProjectID WHERE Assignment.USERID = $UserID";
                 $result = $db->query($select_query);
                 echo "<table>";
