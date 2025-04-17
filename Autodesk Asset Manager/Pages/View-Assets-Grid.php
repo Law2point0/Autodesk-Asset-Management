@@ -165,7 +165,7 @@ $ProjectID = "1";
 
 
     <?php
-    $db = new SQLite3('C:\xampp\htdocs\Autodesk-Asset-Management\Autodesk database_2.db');
+    $db = new SQLite3('Asset-Manager-DB.db');
 
     $selectQuery = "SELECT * FROM Assets
     LEFT JOIN ProjectAssets ON Assets.AssetID = ProjectAssets.AssetID
@@ -217,7 +217,7 @@ $ProjectID = "1";
 
 <div class="gallery">
   <form action="">
-    <a type= "submit" target="" href="View-Asset.php?assetName=Benchy">
+    <a type= "submit" target="" href="View-Asset.php?BaseID=1">
     <img src="..\Thumbnails\Benchy.jpeg" alt="Benchy 3D Model" width="300" height="200">
     <div class="desc">Benchy 2.obj</div>
     </a>

@@ -78,12 +78,12 @@
                 <h3>Asset History</h3>
                 <?php
                     // Check if the asset name is set in the URL
-                    if (isset($_GET['assetName'])) {
-                        $assetName = $_GET['assetName'];                       
+                    if (isset($_GET['BaseID'])) {
+                        $BaseID = $_GET['BaseID'];                       
                     }
 
                     $db = new SQLite3('Asset-Manager-DB.db');
-                    $query = "SELECT * FROM Assets Where AssetName = '$assetName'";
+                    $query = "SELECT * FROM Assets Where BaseID = '$BaseID'";
                     $result = $db->query($query);
 
                     //echo($result);
