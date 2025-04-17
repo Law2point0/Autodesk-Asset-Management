@@ -2,7 +2,7 @@
 session_start(); 
 $UserID = $_SESSION['UserID'];
 $AccessLevel = $_SESSION['AccessLevel'];
-$ProjectID = $_SESSION['ProjectID'];
+$ProjectID = "1";
 ?>
 
 <!DOCTYPE html>
@@ -15,6 +15,7 @@ $ProjectID = $_SESSION['ProjectID'];
     <style>
         div.row{
         text-align: center;
+        width: 700px;
         }
 
         div.desc {
@@ -45,7 +46,7 @@ $ProjectID = $_SESSION['ProjectID'];
          display: flex;
          justify-content: space-between;
          align-items: center;
-         max-width: 1300px; 
+         align: center;
          margin: 0 auto; 
          }
 
@@ -75,6 +76,7 @@ $ProjectID = $_SESSION['ProjectID'];
           display: flex;
          justify-content: flex-end;
          align-items: center;
+         
         }
 
         .left-lock{
@@ -90,7 +92,7 @@ $ProjectID = $_SESSION['ProjectID'];
         padding: 0 10px;
         height: 40px;
         background-color: #3977B0;
-        width: 100%;
+        width: 700px;
         position: relative;
       }
 
@@ -145,54 +147,77 @@ $ProjectID = $_SESSION['ProjectID'];
     <a href="http://localhost/Autodesk-Asset-Management/Autodesk%20Asset%20Manager/Pages/View-Assets-List.php"><button class="upload-button">Switch to list view</button></a>
     </div>
 
-    <main>
-    <a href="javascript:history.back()" class="back-button">← Back</a>
-    <div style="overflow-x:auto;">
-    <div class="blue-banner">
-      <div class="black-banner">
-          <h3>Project Title</h3>
+      <main>
+      <a href="javascript:history.back()" class="back-button">← Back</a>
+      <div class="table-container">
+      <div style="overflow-y:auto;">
+      <div class="blue-banner">
+        <div class="black-banner">
+            <h3>Project Title</h3>
+        </div>
+        <div class="Half-triangle">
+        </div> 
+        <h3 class="white-bold-center"> Assets </h3>
+        <div class="right-lock"> <input type="text" id="searchBox" placeholder="Search by title..."> </div>
       </div>
-      <div class="Half-triangle">
-      </div> 
-       <h3 class="white-bold-center"> Assets </h3>
-       <div class="right-lock"> <input type="text" placeholder="Search by title..."> </div>
-    </div>
-    <div class="table-container">
-    <div class="row">
 
-  <?php
-  $db = new SQLite3('C:\xampp\htdocs\Autodesk-Asset-Management\Autodesk database_2.db');
-  $selectQuery = "SELECT * FROM Assets
-  FULL OUTER JOIN ProjectAssets
-  ON Assets.AssetID = ProjectAssets.AssetID
-  WHERE ProjectID = $ProjectID;";
-  $result = $db->query($selectQuery);
-  $GalleryDiv = "";
+      <div class="row">
 
 
- 
-while ($row = $result->fetchArray(SQLITE3_ASSOC)) {
-  $assetName = htmlspecialchars($row['AssetName']);
-  $thumbnail = htmlspecialchars($row['Thumbnail']);
-  
-  $GalleryDiv .= "
-  <div class=\"gallery\">
-      <form action=\"\">
-          <a type=\"submit\" target=\"\" href=\"View-Asset.php?assetName={$assetName}\">
-              <img src=\"..\\Thumbnails\\{$thumbnail}\" alt=\"{$assetName}\" width=\"300\" height=\"200\">
-              <div class=\"desc\">{$assetName}</div>
-          </a>
-      </form>
-  </div>
-  ";
-}
+    <?php
+    $db = new SQLite3('Asset-Manager-DB.db');
 
-  
-  ?>
+    $selectQuery = "SELECT * FROM Assets
+    LEFT JOIN ProjectAssets ON Assets.AssetID = ProjectAssets.AssetID
+    WHERE ProjectAssets.ProjectID = $ProjectID;";
+    
+    $result = $db->query($selectQuery);
+    $GalleryDiv = "";
+    
+    while ($row = $result->fetchArray(SQLITE3_ASSOC)) {
+        if (!$row) continue; // skip if empty row
+    
+        $assetName = htmlspecialchars($row['AssetName']);
+        $thumbnail = htmlspecialchars($row['Thumbnail']);
+    
+        $GalleryDiv .= "
+        <div class=\"gallery\">
+            <form action=\"\">
+                <a type=\"submit\" target=\"\" href=\"View-Asset.php?assetName={$assetName}\">
+                    <img src=\"/Autodesk-Asset-Management/Autodesk%20Asset%20Manager/Thumbnails/{$thumbnail}\" alt=\"{$assetName}\" width=\"300\" height=\"200\">
+                    <div class=\"desc\">{$assetName}</div>
+                </a>
+            </form>
+        </div>
+        ";
+    }
+    
+    echo "<div id='gallery-container'>$GalleryDiv</div>";
+    ?>
+
+  <script>
+  document.addEventListener('DOMContentLoaded', () => {
+      const searchInput = document.getElementById('searchBox');
+      const galleryItems = document.querySelectorAll('#gallery-container .gallery');
+
+      searchInput.addEventListener('input', () => {
+          const searchValue = searchInput.value.toLowerCase();
+
+          galleryItems.forEach(item => {
+              const desc = item.querySelector('.desc').textContent.toLowerCase();
+              if (desc.includes(searchValue)) {
+                  item.style.display = 'inline-block';
+              } else {
+                  item.style.display = 'none';
+              }
+          });
+      });
+  });
+  </script>
 
 <div class="gallery">
   <form action="">
-    <a type= "submit" target="" href="View-Asset.php?assetName=Benchy">
+    <a type= "submit" target="" href="View-Asset.php?BaseID=1">
     <img src="..\Thumbnails\Benchy.jpeg" alt="Benchy 3D Model" width="300" height="200">
     <div class="desc">Benchy 2.obj</div>
     </a>
@@ -212,6 +237,7 @@ while ($row = $result->fetchArray(SQLITE3_ASSOC)) {
   </a>
   <div class="desc">Hey.obj</div>
 </div>
+
 </div>
 </div>
 </div>
@@ -228,7 +254,6 @@ while ($row = $result->fetchArray(SQLITE3_ASSOC)) {
 
 
       </div>
-
 
     </main>
 </body>

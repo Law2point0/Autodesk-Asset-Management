@@ -33,8 +33,8 @@ function generateTables($db){
         );
 
         CREATE TABLE "Assets" ( 
-            "AssetID" INTEGER PRIMARY KEY AUTOINCREMENT, 
-            "AssetName" TEXT NOT NULL,
+            "AssetID" INTEGER PRIMARY KEY AUTOINCREMENT,
+            "BaseID" INTEGER NOT NULL,
             "LastUpdated" TEXT,
             "Uploader" TEXT NOT NULL,
             "UploadDate" DATE NOT NULL,
@@ -43,8 +43,13 @@ function generateTables($db){
             "License" BLOB,
             "Version" INTEGER NOT NULL,
             "Status" TEXT,
-            "Thumbnail" TEXT NOT NULL
+            "Thumbnail" TEXT NOT NULL,
+            FOREIGN KEY("BaseID") REFERENCES "AssetBase"("BaseID")
+        );
 
+        CREATE TABLE "AssetBase" (
+            "BaseID" INTEGER PRIMARY KEY AUTOINCREMENT,
+            "AssetName" TEXT NOT NULL
         );
 
         CREATE TABLE "AssetsTags" (
@@ -134,10 +139,14 @@ function insertData($db){
         (1, 2, 'Manager'),
         (2, 3, 'Editor');
 
-        INSERT INTO 'Assets' (AssetName, LastUpdated, Uploader, UploadDate, Dimensions, AssetFile, License, Version, Status, Thumbnail) VALUES
-        ('Benchy', '2025-03-01', 'Myles Bradley', '2025-01-15', '1920x1080', x'FFD8FFE0', x'00010203', 1, 'Approved', 'thumbnail1.jpg'),
-        ('Benchy', '2025-03-01', 'Myles Bradley', '2025-02-28', '1920x1080', x'FFD8FFE0', x'00010203', 1, 'Approved', 'thumbnail1.jpg'),
-        ('Buoy', '2025-02-20', 'Jane Smith', '2025-02-19', '500x500', x'FFD8FFE1', x'00040506', 2, 'Pending', 'thumbnail2.jpg');
+        INSERT INTO Assets (BaseID, LastUpdated, Uploader, UploadDate, Dimensions, AssetFile, License, Version, Status, Thumbnail) VALUES
+        (1, '2025-01-15', 'Myles Bradley', '2025-01-15', '1920x1080', x'FFD8FFE0', x'00010203', 1, 'Approved', 'Benchy.jpeg'),
+        (1, '2025-02-28', 'Myles Bradley', '2025-02-28', '1920x1080', x'FFD8FFE0', x'00010203', 2, 'Approved', 'thumbnail1.jpg'),
+        (2, '2025-02-19', 'Jane Smith', '2025-02-19', '500x500', x'FFD8FFE1', x'00040506', 1, 'Pending', 'thumbnail2.jpg');
+
+        INSERT INTO AssetBase (AssetName) VALUES
+        ('Benchy'),
+        ('Buoy');
 
         INSERT INTO 'Tags' (TagID, TagName, AssetID) VALUES
         (1, 'Marketing', 1),

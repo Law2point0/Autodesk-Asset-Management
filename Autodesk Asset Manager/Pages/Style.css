@@ -174,13 +174,14 @@ main {
     margin-top: 20px;
 }
 
-.actions button {
+.actions button, .actions a{
     padding: 10px 15px;
     border: none;
     border-radius: 5px;
     color: white;
     background-color: #007bff;
     cursor: pointer;
+    text-align: center;;
 }
 
 .actions .edit-btn, .actions .delete-btn {
@@ -200,6 +201,11 @@ main {
 .actions .download-btn {
     background-color: #007bff;
     width: 100%;
+}
+
+.download-btn{
+    justify-content: space-between;
+    max-width: 48%;
 }
 /**!!!!!----------right panel------------!!!!!**/
 
