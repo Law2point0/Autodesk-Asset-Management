@@ -84,7 +84,7 @@
 
                     echo"<tr>
                             <td>$AssetID</td>
-                            <td class='Thumbnail'><img src='<?php echo($ThumbnailLink);?>' width='100' height='100'></td>
+                            <td class='Thumbnail'><img src='$ThumbnailLink' width='100' height='100'></td>
                             <td>$AssetName</td>
                             <td>$Status</td>
                             <td>$Dimensions</td>
