@@ -88,7 +88,7 @@
 
                     //echo($result);
 
-                    echo"<table>";
+                    echo"<table class='Asset-History-tb'>";
                     echo"<tr> <th>Date</th> <th>User</th> <th>Action</th> </tr>";
 
                     while($row = $result->fetchArray(SQLITE3_ASSOC)){

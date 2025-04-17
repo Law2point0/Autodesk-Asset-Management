@@ -1,3 +1,10 @@
+<?php
+session_start(); 
+$UserID = $_SESSION['UserID'];
+$AccessLevel = $_SESSION['AccessLevel'];
+$ProjectID = "1";
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,6 +15,7 @@
     <style>
         div.row{
         text-align: center;
+        width: 700px;
         }
 
         div.desc {
@@ -38,7 +46,7 @@
          display: flex;
          justify-content: space-between;
          align-items: center;
-         max-width: 1300px; 
+         align: center;
          margin: 0 auto; 
          }
 
@@ -59,53 +67,66 @@
           font-weight: bold;
         }
 
-        .right-lock {
-        display: flex;
-        justify-content: right;
-        align-items: right;
-        height: 30px;
+        .upload-button:hover{
+          background-color: #777;
+          color: black;
         }
 
+        .right-lock {
+          display: flex;
+         justify-content: flex-end;
+         align-items: center;
+         
+        }
+
+        .left-lock{
+          display: flex;
+         justify-content: flex-start;
+         align-items: center;
+        }
+      
         .blue-banner {
-        display: flex;
-        align-items: center; 
-        padding: 0;
+        display: grid;
+        grid-template-columns: auto 1fr auto; /* Three sections: left, center, right */
+        align-items: center;
+        padding: 0 10px;
         height: 40px;
         background-color: #3977B0;
-        width: 100%; /* Ensure it spans the container */
-        }
+        width: 700px;
+        position: relative;
+      }
 
 
         .white-bold-center {
           font-weight: bold;
           color: white;
           position: absolute;
-          left: 30%;
+          left: 50%;
           transform: translateX(-50%);
-          margin: 0; /* Remove default margins */
+          margin: 0; 
           }
 
-        .black-banner{
+          .black-banner {
           background-color: black;
           color: white;
           font-weight: bold;
           display: flex;
           align-items: center;
-          padding: 0 10px;
-          height: 80%;
-          align-self: flex-start; 
-        }
+          padding: 0 10px; 
+          height: 100%; 
+          position: relative;
+          right: 10%;
+
+          }
 
         .Half-triangle {
           height: 0;
-          margin: 0;
-          border: 0;
-          border-left: 40px solid black; 
-          border-bottom: 30px solid transparent; 
+          border-left: 50px solid black; 
+          border-bottom: 40px solid transparent; 
           border-top: 0px solid transparent; 
           display: inline-block;
           align-self: flex-start;
-          height: 80%;
+          margin-left: -13px;
          }
 
          main {
@@ -122,21 +143,77 @@
     <button class="upload-button"> Upload </button>
     </div>
 
-
-
-    <main>
-    <a href="javascript:history.back()" class="back-button">← Back</a>
-    <div style="overflow-x:auto;">
-    <div class="blue-banner">
-      <div class="black-banner">
-          <h3>Project Title</h3>
-      </div>
-      <div class="Half-triangle">
-      </div> 
-       <h3 class="white-bold-center"> Assets </h3>
+    <div class="left-lock">
+    <a href="http://localhost/Autodesk-Asset-Management/Autodesk%20Asset%20Manager/Pages/View-Assets-List.php"><button class="upload-button">Switch to list view</button></a>
     </div>
-    <div class="table-container">
-    <div class="row">
+
+      <main>
+      <a href="javascript:history.back()" class="back-button">← Back</a>
+      <div class="table-container">
+      <div style="overflow-y:auto;">
+      <div class="blue-banner">
+        <div class="black-banner">
+            <h3>Project Title</h3>
+        </div>
+        <div class="Half-triangle">
+        </div> 
+        <h3 class="white-bold-center"> Assets </h3>
+        <div class="right-lock"> <input type="text" id="searchBox" placeholder="Search by title..."> </div>
+      </div>
+
+      <div class="row">
+
+
+    <?php
+    $db = new SQLite3('C:\xampp\htdocs\Autodesk-Asset-Management\Autodesk database_2.db');
+
+    $selectQuery = "SELECT * FROM Assets
+    LEFT JOIN ProjectAssets ON Assets.AssetID = ProjectAssets.AssetID
+    WHERE ProjectAssets.ProjectID = $ProjectID;";
+    
+    $result = $db->query($selectQuery);
+    $GalleryDiv = "";
+    
+    while ($row = $result->fetchArray(SQLITE3_ASSOC)) {
+        if (!$row) continue; // skip if empty row
+    
+        $assetName = htmlspecialchars($row['AssetName']);
+        $thumbnail = htmlspecialchars($row['Thumbnail']);
+    
+        $GalleryDiv .= "
+        <div class=\"gallery\">
+            <form action=\"\">
+                <a type=\"submit\" target=\"\" href=\"View-Asset.php?assetName={$assetName}\">
+                    <img src=\"../Thumbnails/{$thumbnail}\" alt=\"{$assetName}\" width=\"300\" height=\"200\">
+                    <div class=\"desc\">{$assetName}</div>
+                </a>
+            </form>
+        </div>
+        ";
+    }
+    
+    echo "<div id='gallery-container'>$GalleryDiv</div>";
+    ?>
+
+  <script>
+  document.addEventListener('DOMContentLoaded', () => {
+      const searchInput = document.getElementById('searchBox');
+      const galleryItems = document.querySelectorAll('#gallery-container .gallery');
+
+      searchInput.addEventListener('input', () => {
+          const searchValue = searchInput.value.toLowerCase();
+
+          galleryItems.forEach(item => {
+              const desc = item.querySelector('.desc').textContent.toLowerCase();
+              if (desc.includes(searchValue)) {
+                  item.style.display = 'inline-block';
+              } else {
+                  item.style.display = 'none';
+              }
+          });
+      });
+  });
+  </script>
 
 <div class="gallery">
   <form action="">
@@ -160,6 +237,7 @@
   </a>
   <div class="desc">Hey.obj</div>
 </div>
+
 </div>
 </div>
 </div>
@@ -167,17 +245,17 @@
 
         <div class="black-project">
           <h3>Project Details</h3>
-         <div class="right-lock"> <input type="text" placeholder="Search.."> </div>
         </div>
         <h3>Comments</h3>
-          <input type="text">
-          <div class="actions">
-            <button class="submit-btn">Submit</button>
-          </div>
-      </div>
+        <input type="text">
+        <div class="actions">
+          <button class="submit-btn">Submit</button>
+        </div>
 
+
+      </div>
 
     </main>
 </body>
-<footer></footer>
+
 </html>
