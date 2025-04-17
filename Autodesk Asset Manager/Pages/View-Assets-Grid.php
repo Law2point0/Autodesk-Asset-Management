@@ -167,9 +167,24 @@ $ProjectID = "1";
     <?php
     $db = new SQLite3('Asset-Manager-DB.db');
 
-    $selectQuery = "SELECT * FROM Assets
-    LEFT JOIN ProjectAssets ON Assets.AssetID = ProjectAssets.AssetID
-    WHERE ProjectAssets.ProjectID = $ProjectID;";
+    $selectQuery = "SELECT 
+    ab.AssetName,
+    a.Thumbnail
+    FROM 
+      ProjectAssets pa
+    JOIN 
+      AssetBase ab ON pa.BaseID = ab.BaseID
+    JOIN 
+      Assets a ON a.AssetID = (
+        SELECT AssetID 
+        FROM Assets 
+        WHERE BaseID = pa.BaseID 
+        ORDER BY Version DESC 
+        LIMIT 1
+        )
+    WHERE 
+      pa.ProjectID = 1
+    ";
     
     $result = $db->query($selectQuery);
     $GalleryDiv = "";
