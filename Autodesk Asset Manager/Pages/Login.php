@@ -88,7 +88,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $inputEmail = $_POST['Email'];
     $inputPassword = $_POST['Password'];
 
-    $db = new SQLite3('C:\xampp\htdocs\Autodesk-Asset-Management\Autodesk database_2.db');
+    $db = new SQLite3('Asset-Manager-DB.db');
 
     if (!$db) {
         die("Database connection failed");
