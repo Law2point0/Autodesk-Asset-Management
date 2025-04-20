@@ -48,7 +48,8 @@
                 echo 'db not connected';
             }
             $select_query = "SELECT * FROM Assets 
-            LEFT JOIN ProjectAssets ON Assets.AssetID = ProjectAssets.AssetID
+            LEFT JOIN ProjectAssets ON AssetBase.BaseID = ProjectAssets.BaseID
+            LEFT JOIN AssetBase ON Assets.BaseID = AssetBase.BaseID
             WHERE ProjectAssets.ProjectID = $ProjectID;";
             $result = $db->query($select_query);
 
@@ -78,10 +79,12 @@
                     $LastUpdated = $row['LastUpdated'];
                     $UploadedBy = $row['Uploader'];
                     $UploadDate = $row['UploadDate'];
+                    $ThumbnailLink = "..\\Thumbnails\\";
+                    $ThumbnailLink .=$Thumbnail;
 
                     echo"<tr>
                             <td>$AssetID</td>
-                            <td>$Thumbnail</td>
+                            <td class='Thumbnail'><img src='$ThumbnailLink' width='100' height='100'></td>
                             <td>$AssetName</td>
                             <td>$Status</td>
                             <td>$Dimensions</td>
