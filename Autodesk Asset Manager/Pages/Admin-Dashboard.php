@@ -1,29 +1,20 @@
+<?php
+session_start();
+$db = new SQLite3('Autodesk database_2.db');
+$totalProjects = $db->querySingle("SELECT COUNT(*) FROM projects");
+$completedProjects = $db->querySingle("SELECT COUNT(*) FROM projects WHERE status = 'completed'");
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>Admin Dashboard</title>
-<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-<link rel="stylesheet" href="style.css">
+<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet" />
+<link rel="stylesheet" href="style.css" />
 </head>
 <body>
-
-<body>
-    <?php
-    include ("Navbar.php");
-    ?>
-    <main>
-        <div class="container">
-            <div class="left-panel">
-                <a href="#" class="back-button">← Back</a>
-            </div>
-        </div>
-    </main>
-</body>
-
-
-
+<?php include("Navbar.php"); ?>
 <div class="container mt-4">
 <h1 class="text-center">Admin Dashboard</h1>
 <div class="row mt-5">
@@ -35,7 +26,6 @@
 </div>
 </div>
 </div>
-
 <div class="col-md-3">
 <div class="card text-center">
 <div class="card-body">
@@ -45,23 +35,31 @@
 </div>
 </div>
 </div>
-
 <div class="col-md-3">
 <div class="card text-center">
 <div class="card-body">
 <h5 class="card-title">Assign managers</h5>
-<p class="card-text">View, add, edit, and a manager.</p>
+<p class="card-text">View, add, edit, and assign a manager.</p>
 <a href="assignmanager.php" class="btn btn-primary">Go to assign a manager</a>
 </div>
 </div>
 </div>
-
 <div class="col-md-3">
 <div class="card text-center">
 <div class="card-body">
 <h5 class="card-title">Assign users</h5>
-<p class="card-text">View, add, edit, and a user.</p>
+<p class="card-text">View, add, edit, and assign a user.</p>
 <a href="assignuser.php" class="btn btn-primary">Go to assign a user</a>
+</div>
+</div>
+</div>
+<div class="col-md-3 mt-4">
+<div class="card text-center border-success">
+<div class="card-body">
+<h5 class="card-title text-success">Projects</h5>
+<p class="card-text">Total: <strong><?php echo $totalProjects; ?></strong></p>
+<p class="card-text">Completed: <strong><?php echo $completedProjects; ?></strong></p>
+<a href="View-Projects.php" class="btn btn-success mt-2">View All Projects</a>
 </div>
 </div>
 </div>
@@ -69,3 +67,4 @@
 </div>
 </body>
 </html>
+
