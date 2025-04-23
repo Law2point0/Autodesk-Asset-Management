@@ -32,19 +32,21 @@
     import { OBJLoader } from 'three/examples/jsm/loaders/OBJLoader.js';
     import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 
-    // Scene setup
+    //Initialises the scene
     const scene = new THREE.Scene();
     scene.background = new THREE.Color(0xf0f0f0);
 
+    //adds camera to the scene
     const camera = new THREE.PerspectiveCamera(45, 1, 0.1, 100);
     camera.position.set(2, 2, 2);
     camera.lookAt(0, 0, 0);
 
+    //sets camera dimensions
     const renderer = new THREE.WebGLRenderer({ antialias: true, preserveDrawingBuffer: true });
     renderer.setSize(300, 300);
     document.body.appendChild(renderer.domElement);
 
-    // Lighting
+    //adds lighting 
     const ambientLight = new THREE.AmbientLight(0xffffff, 0.6);
     scene.add(ambientLight);
 
@@ -53,7 +55,7 @@
     scene.add(directionalLight);
 
 
-    // Loaders
+    //Initialises loaders
     const gltfLoader = new GLTFLoader();
     const objLoader = new OBJLoader();
 
@@ -94,7 +96,7 @@
       }
     }
 
-    // Load GLB model
+    //Loads selected model into the scene
     function addModelToScene(model) {
     scene.add(model);
 
@@ -103,7 +105,7 @@
     const size = box.getSize(new THREE.Vector3()).length();
     model.position.sub(center); // Center the model
 
-    // Move camera back based on size
+    //Move camera back based on size
     camera.position.set(0, size * 0.5, size * 1.5);
     camera.lookAt(0, 0, 0);
 
@@ -117,7 +119,30 @@
     img.height = 150;
     document.body.appendChild(img);
 
-    saveThumbnail(thumbnailDataURL);
+    /*saveThumbnail(thumbnailDataURL);
+    }
+    function saveThumbnail(dataURL) {
+      const modelName = 'Large Rock';
+      fetch('save-thumbnail.php', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ 
+          image: dataURL,
+          name: modelName,
+        }),
+      })
+        .then((response) => response.text())
+        .then((data) => {
+          console.log('Thumbnail saved successfully:', data);
+        })
+        .catch((error) => {
+          console.error('Error saving thumbnail:', error);
+        });
+    }*/
+
+    saveModel(thumbnailDataURL);
     }
     function saveThumbnail(dataURL) {
       const modelName = 'Large Rock';

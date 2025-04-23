@@ -168,7 +168,7 @@ $ProjectID = "1";
     $db = new SQLite3('Asset-Manager-DB.db');
 
     $selectQuery = "SELECT * FROM Assets
-    LEFT JOIN ProjectAssets ON Assets.AssetID = ProjectAssets.AssetID
+    LEFT JOIN ProjectAssets ON Assets.BaseID = ProjectAssets.BaseID
     WHERE ProjectAssets.ProjectID = $ProjectID;";
     
     $result = $db->query($selectQuery);
