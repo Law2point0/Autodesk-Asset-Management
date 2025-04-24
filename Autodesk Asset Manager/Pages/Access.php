@@ -12,6 +12,7 @@ session_start();
 $UserID = $_SESSION['UserID'];
 $AccessLevel = $_SESSION['AccessLevel'];
 $ProjectID = $_SESSION['ProjectID']; /* if your page neeeds a projectID*/
+$BaseID = $_SESSION['BaseID']; /* if your page neeeds a baseID*/
 ?>
 
 <?php
