@@ -67,7 +67,7 @@
                     <input type="text">
                 </div>
                 <div class="actions">
-                    <a href="Upload-New-Version.php"><button class="download-btn">Upload</button></a>
+                    <a href="Upload-Asset-Version.php"><button class="download-btn">Upload</button></a>
                     <button class="download-btn">Download</button>   
                 </div>
                 <div class="actions">
