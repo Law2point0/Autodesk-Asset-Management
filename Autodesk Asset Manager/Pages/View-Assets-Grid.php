@@ -192,7 +192,7 @@ $ProjectID = "1";
     while ($row = $result->fetchArray(SQLITE3_ASSOC)) {
         if (!$row) continue; // skip if empty row
     
-        $BaseID = htmlspecialchars($row['BaseID']);
+        $AssetName = htmlspecialchars($row['AssetName']);
         $thumbnail = htmlspecialchars($row['Thumbnail']);
 
         echo "<!-- DEBUG THUMBNAIL PATH: ../Thumbnails/{$thumbnail} -->";
@@ -200,9 +200,9 @@ $ProjectID = "1";
         $GalleryDiv .= "
         <div class=\"gallery\">
             <form action=\"\">
-                <a type=\"submit\" target=\"\" href=\"View-Asset.php?assetName={$BaseID}\">
-                    <img src=\"../Thumbnails/{$thumbnail}\" alt=\"{$BaseID}\" width=\"300\" height=\"200\">
-                    <div class=\"desc\">{$BaseID}</div>
+                <a type=\"submit\" target=\"\" href=\"View-Asset.php?assetName={$AssetName}\">
+                    <img src=\"../Thumbnails/{$thumbnail}\" alt=\"{$AssetName}\" width=\"300\" height=\"200\">
+                    <div class=\"desc\">{$AssetName}</div>
                 </a>
             </form>
         </div>
@@ -210,7 +210,6 @@ $ProjectID = "1";
     }
     
     echo "<div id='gallery-container'>$GalleryDiv</div>";
-    echo "{$thumbnail}"
     ?>
 
   <script>
