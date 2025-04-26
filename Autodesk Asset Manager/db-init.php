@@ -123,18 +123,66 @@ function insertData($db){
 
         $sql ="
         INSERT INTO 'User' (AccessLevel, Password, FName, LName, Email) VALUES
-        ('Admin', 'hashed_password_1', 'John', 'Doe', 'john.doe@example.com'),
-        ('Manager', 'hashed_password_2', 'Jane', 'Smith', 'jane.smith@example.com'),
-        ('Editor', 'hashed_password_3', 'Alice', 'Johnson', 'alice.johnson@example.com');
+        ('Admin', 'hashed_password_1', 'John', 'Doe', 'john.doe@Autodesk.com'),
+        ('Admin', 'hashed_password_2', 'Bob', 'Brown', 'bob.brown@Autodesk.com'),
+        ('Manager', 'hashed_password_3', 'Chloe', 'Taylor', 'Chloe.Taylor@Autodesk.com'),
+        ('Manager', 'hashed_password_4', 'Magnus', 'Castro', 'Magnus.Castro@Autodesk.com'),
+        ('Manager', 'hashed_password_5', 'Jane', 'Smith', 'jane.smith@Autodesk.com'),
+        ('Editor', 'hashed_password_6', 'Alice', 'Johnson', 'alice.johnson@Autodesk.com'),
+        ('Editor', 'hashed_password_7', 'Casper', 'Fuentes', 'casper.fuentes@Autodesk.com'),
+        ('Editor', 'hashed_password_8', 'Meghan', 'Harvey', 'Meghan.Harvey@Autodesk.com'),
+        ('Editor', 'hashed_password_9', 'Angus', 'Jarvis', 'Angus.Jarvis@Autodesk.com'),
+        ('Editor', 'hashed_password_10', 'Seamus', 'Hilton', 'Seamus.Hilton@Autodesk.com'),
+        ('Editor', 'hashed_password_11', 'Ciaran', 'Carver', 'Ciaran.Carver@Autodesk.com'),
+        ('Editor', 'hashed_password_12', 'Valentina', 'Villegas', 'Valentina.Villegas@Autodesk.com'),
+        ('Editor', 'hashed_password_13', 'Larry', 'Roberson', 'Larry.Roberson@Autodesk.com'),
+        ('Editor', 'hashed_password_14', 'Marco', 'Coffey', 'Marco.Coffey@Autodesk.com');
 
         INSERT INTO 'Project' (ProjectID, ProjectName, ProjectDescription, ProjectManager) VALUES
-        (1, 'Ocean', 'Ocean themed assets for the sea people', 1),
-        (2, 'Marketing Campaign', 'Digital marketing push for product launch', 2);
+        (1, 'Ocean Project', 'Ocean themed assets for the sea people', 1),
+        (2, 'Forest Project', 'Forest assets for the forest dwellers', 2),
+        (3, 'Space Project', 'Assets to debunk the roundedness of earth', 1),
+        (4, 'Character Design Pack', 'Character Assets', 3),
+        (5, 'Street Assets', 'The streets and more streets', 2);
 
         INSERT INTO 'Assignment' (ProjectID, UserID, AccessLevel) VALUES
-        (1, 1, 'Admin'),
-        (1, 2, 'Manager'),
-        (2, 3, 'Editor');
+        (1, 1, 'Manager'),
+        (1, 3, 'Manager'),
+        (1, 4, 'Editor'),
+        (1, 6, 'Editor'),
+        (1, 7, 'Editor'),
+        (1, 8, 'Editor'),
+        (1, 10, 'Editor'),
+        (1, 13, 'Editor'),
+        (1, 14, 'Editor'),
+        (2, 1, 'Manager'),
+        (2, 2, 'Manager'),
+        (2, 7, 'Editor'),
+        (2, 9, 'Editor'),
+        (2, 12, 'Editor'),
+        (2, 14, 'Editor'),
+        (2, 6, 'Editor'),
+        (3, 1, 'Manager'),
+        (3, 5, 'Manager'),
+        (3, 4, 'Manager'),
+        (3, 14, 'Editor'),
+        (3, 12, 'Editor'),
+        (3, 3, 'Editor'),
+        (3, 9, 'Editor'),
+        (4, 1, 'Manager'),
+        (4, 5, 'Manager'),
+        (4, 4, 'Manager'),
+        (4, 11, 'Editor'),
+        (4, 7, 'Editor'),   
+        (4, 6, 'Editor'),
+        (4, 12, 'Editor'),
+        (4, 14, 'Editor'),
+        (5, 1, 'Manager'),
+        (5, 5, 'Editor'),
+        (5, 7, 'Editor'),
+        (5, 8, 'Editor'),
+        (5, 9, 'Editor');
+
 
         INSERT INTO 'Assets' (BaseID, LastUpdated, Uploader, UploadDate, Dimensions, AssetFile, License, Version, Status,Thumbnail) VALUES
         (1, '2025-01-15', 'Myles Bradley', '2025-01-15', '1920x1080', x'FFD8FFE0', x'00010203', 1, 'Approved', 'thumbnail1.jpg'),
