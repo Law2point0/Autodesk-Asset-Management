@@ -14,7 +14,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $decodedImage = base64_decode($imageData);
 
         // Save the image to a file
-        $filePath = '../Thumbnails/' . $modelName . '_' . time() . '.png';
+        $filePath = '../tmp/' . $modelName . '_' . time() . '.png';
         if (file_put_contents($filePath, $decodedImage)) {
             echo 'Thumbnail saved to ' . $filePath;
         } else {

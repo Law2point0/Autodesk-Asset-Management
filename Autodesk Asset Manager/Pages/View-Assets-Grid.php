@@ -140,7 +140,7 @@ $ProjectID = "1";
         include("NavBar.php");
     ?>
     <div class="right-lock">
-    <button class="upload-button"> Upload </button>
+    <a href="Autodesk Asset Manager\Pages\Upload-Asset-Version.php"><button class="upload-button"> Upload </button></a>
     </div>
 
     <div class="left-lock">

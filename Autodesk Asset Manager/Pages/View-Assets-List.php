@@ -48,7 +48,8 @@
                 echo 'db not connected';
             }
             $select_query = "SELECT * FROM Assets 
-            LEFT JOIN ProjectAssets ON Assets.AssetID = ProjectAssets.AssetID
+            LEFT JOIN ProjectAssets ON AssetBase.BaseID = ProjectAssets.BaseID
+            LEFT JOIN AssetBase ON Assets.BaseID = AssetBase.BaseID
             WHERE ProjectAssets.ProjectID = $ProjectID;";
             $result = $db->query($select_query);
 
@@ -78,10 +79,12 @@
                     $LastUpdated = $row['LastUpdated'];
                     $UploadedBy = $row['Uploader'];
                     $UploadDate = $row['UploadDate'];
+                    $ThumbnailLink = "..\\Thumbnails\\";
+                    $ThumbnailLink .=$Thumbnail;
 
                     echo"<tr>
                             <td>$AssetID</td>
-                            <td>$Thumbnail</td>
+                            <td class='Thumbnail'><img src='$ThumbnailLink' width='100' height='100'></td>
                             <td>$AssetName</td>
                             <td>$Status</td>
                             <td>$Dimensions</td>
@@ -98,13 +101,39 @@
             ?>
             </div>
 
-            <div class="right-panel">
+            <div class='right-panel'>
                 <h3>Comments</h3>
-                <input type="text">
-                <div class="actions">
-                    <button class="submit-btn">Submit</button>
+                <input type='text'>
+                <div class='actions'>
+                    <button class='submit-btn'>Submit</button>
                 </div>
-            </div>
+                    <?php 
+                    $select_comments = 'SELECT * FROM Comment
+                    LEFT JOIN AssetComments ON Comment.CommentID = AssetComments.CommentID;';
+                    $comment_result = $db->query($select_comments);
+                    echo"
+                    <table>
+                        <tr>
+                            <th>User ID</th>
+                            <th>Comment</th>
+                            <th>Date commented</th>                   
+                        </tr>";
+
+                while ($row = $comment_result->fetchArray(SQLITE3_ASSOC)) {
+                    $UserID = $row['UserID'];
+                    $Comment = $row['Comment'];
+                    $Date = $row['Date'];
+
+                    echo"<tr>
+                            <td>$UserID</td>
+                            <td>$Comment</td>
+                            <td>$Date</td>
+                    </tr>";
+                } 
+                echo"</table>";
+                    ?>
+                    
+                </div>
 
 
             </div>

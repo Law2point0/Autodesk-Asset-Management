@@ -1,3 +1,5 @@
+<?php session_start() ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -65,7 +67,7 @@
                     <input type="text">
                 </div>
                 <div class="actions">
-                    <a href="Upload-New-Version.php"><button class="download-btn">Upload</button></a>
+                    <a href="Upload-Asset-Version.php"><button class="download-btn">Upload</button></a>
                     <button class="download-btn">Download</button>   
                 </div>
                 <div class="actions">
@@ -75,13 +77,16 @@
         </div>
         <div style="display: flex ; justify-content: center; align-items: center; margin-top: 20px;">
             <div class="asset-history">
-                <h3>Asset History</h3>
+                <h3>Asset History</h3>  
                 <?php
+                    
                     // Check if the asset name is set in the URL
-                    if (isset($_GET['BaseID'])) {
-                        $BaseID = $_GET['BaseID'];                       
+                    if (isset($_GET['assetName'])) {
+                        $BaseID = $_GET['assetName'];    
+                        $_SESSION["BaseID"] = $BaseID;
                     }
-
+                    //;  
+                    //print_r($_SESSION);
                     $db = new SQLite3('Asset-Manager-DB.db');
                     $query = "SELECT * FROM Assets Where BaseID = '$BaseID'";
                     $result = $db->query($query);
