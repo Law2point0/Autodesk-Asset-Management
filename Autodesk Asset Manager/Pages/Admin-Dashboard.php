@@ -11,55 +11,62 @@ $completedProjects = $db->querySingle("SELECT COUNT(*) FROM projects WHERE statu
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>Admin Dashboard</title>
 <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet" />
-<link rel="stylesheet" href="style.css" />
+<style>
+body { padding: 2rem; }
+.card { box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+</style>
 </head>
 <body>
 <?php include("Navbar.php"); ?>
-<div class="container mt-4">
-<h1 class="text-center">Admin Dashboard</h1>
-<div class="row mt-5">
-<div class="col-md-3">
-<div class="card text-center">
-<div class="card-body">
+<div class="container">
+<h1 class="text-center mb-4">Admin Dashboard</h1>
+<div class="row mb-4">
+<div class="col-md-3 mb-4">
+<div class="card text-center h-100">
+<div class="card-body d-flex flex-column justify-content-between">
 <p class="card-text">Assign an editor.</p>
-<a href="Assign-Editors.php" class="btn btn-primary">Go to assign</a>
+<a href="Assign-Editors.php" class="btn btn-primary mt-3">Go to assign</a>
 </div>
 </div>
 </div>
-<div class="col-md-3">
-<div class="card text-center">
-<div class="card-body">
+<div class="col-md-3 mb-4">
+<div class="card text-center h-100">
+<div class="card-body d-flex flex-column justify-content-between">
 <h5 class="card-title">View assigned projects</h5>
 <p class="card-text">View, add, edit, and delete assigned projects.</p>
-<a href="View-Asset.php" class="btn btn-primary">Go to Manage projects</a>
+<a href="View-Asset.php" class="btn btn-primary mt-3">Manage projects</a>
 </div>
 </div>
 </div>
-<div class="col-md-3">
-<div class="card text-center">
-<div class="card-body">
+<div class="col-md-3 mb-4">
+<div class="card text-center h-100">
+<div class="card-body d-flex flex-column justify-content-between">
 <h5 class="card-title">Assign managers</h5>
 <p class="card-text">View, add, edit, and assign a manager.</p>
-<a href="assignmanager.php" class="btn btn-primary">Go to assign a manager</a>
+<a href="assignmanager.php" class="btn btn-primary mt-3">Assign manager</a>
 </div>
 </div>
 </div>
-<div class="col-md-3">
-<div class="card text-center">
-<div class="card-body">
+<div class="col-md-3 mb-4">
+<div class="card text-center h-100">
+<div class="card-body d-flex flex-column justify-content-between">
 <h5 class="card-title">Assign users</h5>
 <p class="card-text">View, add, edit, and assign a user.</p>
-<a href="assignuser.php" class="btn btn-primary">Go to assign a user</a>
+<a href="assignuser.php" class="btn btn-primary mt-3">Assign user</a>
 </div>
 </div>
 </div>
-<div class="col-md-3 mt-4">
-<div class="card text-center border-success">
-<div class="card-body">
+</div>
+<div class="row justify-content-center">
+<div class="col-md-3">
+<div class="card text-center border-success h-100">
+<div class="card-body d-flex flex-column justify-content-between">
+<div>
 <h5 class="card-title text-success">Projects</h5>
 <p class="card-text">Total: <strong><?php echo $totalProjects; ?></strong></p>
 <p class="card-text">Completed: <strong><?php echo $completedProjects; ?></strong></p>
-<a href="View-Projects.php" class="btn btn-success mt-2">View All Projects</a>
+</div>
+<a href="View-Projects.php" class="btn btn-success mt-3">View All Projects</a>
 </div>
 </div>
 </div>
@@ -67,4 +74,6 @@ $completedProjects = $db->querySingle("SELECT COUNT(*) FROM projects WHERE statu
 </div>
 </body>
 </html>
+
+
 
