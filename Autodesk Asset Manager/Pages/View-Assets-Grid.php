@@ -140,7 +140,7 @@ $ProjectID = "1";
         include("NavBar.php");
     ?>
     <div class="right-lock">
-    <button class="upload-button"> Upload </button>
+    <a href="Autodesk Asset Manager\Pages\Upload-Asset-Version.php"><button class="upload-button"> Upload </button></a>
     </div>
 
     <div class="left-lock">
@@ -167,9 +167,24 @@ $ProjectID = "1";
     <?php
     $db = new SQLite3('Asset-Manager-DB.db');
 
-    $selectQuery = "SELECT * FROM Assets
-    LEFT JOIN ProjectAssets ON Assets.BaseID = ProjectAssets.BaseID
-    WHERE ProjectAssets.ProjectID = $ProjectID;";
+    $selectQuery = "SELECT 
+    ab.AssetName,
+    a.Thumbnail
+    FROM 
+      ProjectAssets pa
+    JOIN 
+      AssetBase ab ON pa.BaseID = ab.BaseID
+    JOIN 
+      Assets a ON a.AssetID = (
+        SELECT AssetID 
+        FROM Assets 
+        WHERE BaseID = pa.BaseID 
+        ORDER BY Version DESC 
+        LIMIT 1
+        )
+    WHERE 
+      pa.ProjectID = 1
+    ";
     
     $result = $db->query($selectQuery);
     $GalleryDiv = "";
@@ -177,17 +192,19 @@ $ProjectID = "1";
     while ($row = $result->fetchArray(SQLITE3_ASSOC)) {
         if (!$row) continue; // skip if empty row
     
-        $BaseID = htmlspecialchars($row['BaseID']);
-        $thumbnail = htmlspecialchars($row['Thumbnail']);
+        $AssetName = htmlspecialchars($row['AssetName']);
+        $thumbnailBlob = $row['Thumbnail'];
+        $base64Image = base64_encode($thumbnailBlob);
+        $imgSrc = "data:image/png;base64," . $base64Image;
 
         echo "<!-- DEBUG THUMBNAIL PATH: ../Thumbnails/{$thumbnail} -->";
     
         $GalleryDiv .= "
         <div class=\"gallery\">
             <form action=\"\">
-                <a type=\"submit\" target=\"\" href=\"View-Asset.php?assetName={$BaseID}\">
-                    <img src=\"../Thumbnails/{$thumbnail}\" alt=\"{$BaseID}\" width=\"300\" height=\"200\">
-                    <div class=\"desc\">{$BaseID}</div>
+                <a type=\"submit\" target=\"\" href=\"View-Asset.php?assetName={$AssetName}\">
+                    <img src='$imgSrc' alt=\"{$AssetName}\" width=\"300\" height=\"200\">
+                    <div class=\"desc\">{$AssetName}</div>
                 </a>
             </form>
         </div>
@@ -195,7 +212,6 @@ $ProjectID = "1";
     }
     
     echo "<div id='gallery-container'>$GalleryDiv</div>";
-    echo "{$thumbnail}"
     ?>
 
   <script>

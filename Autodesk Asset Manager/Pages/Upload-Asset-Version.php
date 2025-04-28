@@ -158,7 +158,7 @@ function saveData(file, name, thumbnailDataURL) {
   const reader = new FileReader();
   reader.onloadend = () => {
     const modelBase64 = reader.result.split(',')[1];
-    fetch('save-asset.php', {
+    fetch('save-asset-version.php', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({

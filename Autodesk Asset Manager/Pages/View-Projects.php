@@ -64,7 +64,7 @@ if (!isset($_SESSION['UserID'])) {
         <div>
             <?php
                 $db = new SQLITE3("Asset-Manager-DB.db");
-                $UserID = 3;/*$_SESSION['UserID'];*/
+                $UserID = 1;/*$_SESSION['UserID'];*/
                 $select_query = "SELECT * FROM Assignment LEFT JOIN Project ON Assignment.ProjectID = Project.ProjectID WHERE Assignment.USERID = $UserID";
                 $result = $db->query($select_query);
                 echo "<table>";
@@ -85,6 +85,10 @@ if (!isset($_SESSION['UserID'])) {
                                     <button class='submit-btn'>view</button>
                                 </a>                                
                             </td>
+<<<<<<< HEAD
+=======
+                            <td>$ProjectID</td>
+>>>>>>> 1e7596b132a47015ff1a8b958177bc08c2298426
                         </tr>";
                 }
                 echo "</table>";
