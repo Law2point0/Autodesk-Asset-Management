@@ -193,7 +193,9 @@ $ProjectID = "1";
         if (!$row) continue; // skip if empty row
     
         $AssetName = htmlspecialchars($row['AssetName']);
-        $thumbnail = htmlspecialchars($row['Thumbnail']);
+        $thumbnailBlob = $row['Thumbnail'];
+        $base64Image = base64_encode($thumbnailBlob);
+        $imgSrc = "data:image/png;base64," . $base64Image;
 
         echo "<!-- DEBUG THUMBNAIL PATH: ../Thumbnails/{$thumbnail} -->";
     
@@ -201,7 +203,7 @@ $ProjectID = "1";
         <div class=\"gallery\">
             <form action=\"\">
                 <a type=\"submit\" target=\"\" href=\"View-Asset.php?assetName={$AssetName}\">
-                    <img src=\"../Thumbnails/{$thumbnail}\" alt=\"{$AssetName}\" width=\"300\" height=\"200\">
+                    <img src='$imgSrc' alt=\"{$AssetName}\" width=\"300\" height=\"200\">
                     <div class=\"desc\">{$AssetName}</div>
                 </a>
             </form>
