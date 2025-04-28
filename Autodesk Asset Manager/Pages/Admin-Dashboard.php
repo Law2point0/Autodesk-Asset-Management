@@ -25,7 +25,7 @@ body { padding: 2rem; }
 <div class="card text-center h-100">
 <div class="card-body d-flex flex-column justify-content-between">
 <p class="card-text">Assign an editor.</p>
-<a href="Assign_Editors.php" class="btn btn-primary mt-3">Go to assign</a>
+<a href="assign_editor.php" class="btn btn-primary mt-3">Go to assign</a>
 </div>
 </div>
 </div>
