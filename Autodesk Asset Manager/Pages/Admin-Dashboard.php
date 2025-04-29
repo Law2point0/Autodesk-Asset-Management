@@ -43,7 +43,7 @@ body { padding: 2rem; }
 <div class="card-body d-flex flex-column justify-content-between">
 <h5 class="card-title">Assign managers</h5>
 <p class="card-text">View, add, edit, and assign a manager.</p>
-<a href="Assign_Manager.php" class="btn btn-primary mt-3">Assign manager</a>
+<a href="Assign_Managers.php" class="btn btn-primary mt-3">Assign manager</a>
 </div>
 </div>
 </div>
