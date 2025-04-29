@@ -32,7 +32,7 @@ if (isset($_GET["remove_id"])) {
     $stmt = $conn->prepare($sql);
     $stmt->bind_param("i", $remove_id);
     $stmt->execute();
-    header("Location: assign_editor.php");
+    header("Location: Assign_Editors.php");
     exit();
 }
 
@@ -84,7 +84,7 @@ $result = $conn->query("SELECT * FROM assigned_editors");
 <td><?php echo $row["project_name"]; ?></td>
 <td><?php echo $row["member_id"]; ?></td>
 <td>
-<a href="assign_editor.php?remove_id=<?php echo $row['id']; ?>" class="btn btn-danger btn-sm">Remove</a>
+<a href="Assign_Editors.php?remove_id=<?php echo $row['id']; ?>" class="btn btn-danger btn-sm">Remove</a>
 </td>
 </tr>
 <?php endwhile; ?>
