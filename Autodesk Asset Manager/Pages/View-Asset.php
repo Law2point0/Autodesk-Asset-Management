@@ -16,7 +16,7 @@
         <div class="panel-container">
             <div class="left-panel">
                 <a href="javascript:history.back()" class="back-button">← Back</a>
-                <div class="asset-display">
+                <div class="asset-display" max-width="100%">
                     <div class=asset-title-card>
                         <?php
                             if (isset($_GET['assetName'])) {
@@ -37,13 +37,13 @@
                             $imgSrc = "data:image/png;base64," . $base64Image;
 
 
-                            echo "<h2>'" . $row["AssetName"] . "'</h2>";
+                            echo "<h2>" . $row["AssetName"] . "</h2>";
                         ?>
                         
                         <div id="titleBuffer"></div>
                     </div>
                     <div class="asset-image">
-                        <?php echo "<img src='$imgSrc' width='100'>"; ?>
+                        <?php echo "<img src='$imgSrc' style='max-width: 100%'>"; ?>
                     </div>
                     <div class="status-label">
                         <h3> Status: </h3>
@@ -80,11 +80,7 @@
                     <input type="text">
                 </div>
                 <div class="asset-info">
-                    <h3>Asset Description</h3>
-                    <input type="text">
-                </div>
-                <div class="asset-info">
-                    <h3>Tags</h3>
+                    <h3>Comments</h3>
                     <input type="text">
                 </div>
                 <div class="actions">
@@ -93,8 +89,13 @@
                         <button class="download-btn">Download</button>
                     </a>
                 </div>
-                <div class="actions">
-                    <button class="delete-btn">Delete</button>
+                <div class="delete">
+                    <?php 
+                        $_SESSION["AccessLevel"];
+                        if($_SESSION["AccessLevel"] == "Admin" || $_SESSION["AccessLevel"] == "Manager"){
+                            echo "<a href='Delete-Asset.php?BaseID=$BaseID'><button class='delete-btn'>Delete</button></a>";
+                        };
+                    ?>
                 </div>
             </div>
         </div>

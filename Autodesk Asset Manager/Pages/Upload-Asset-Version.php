@@ -8,57 +8,57 @@
   <?php
     session_start();
     include("NavBar.php");
+
+    if (isset($_GET['assetName'])) {
+      $BaseID = $_GET['assetName'];    
+      $_SESSION["BaseID"] = $BaseID;
+      
+    }
+    $BaseID = 4;
+    $db = new SQLite3('Asset-Manager-DB.db');
+    $results = $db->query("SELECT BaseID, AssetName
+                    FROM AssetBase
+                    Where BaseID = $BaseID;");
+
+    $row = $results->fetchArray(SQLITE3_ASSOC);
   ?>
 </head>
 <body>
   <main>
     <div class="panel-container">
-      <div class="left-panel">
-        <a href="View-Assets-Grid.php" class="back-button">← Back</a>
-        <div class="asset-display">
-          <div class="asset-title-card">
-            <h2>Benchy 2</h2>
-            <div id="titleBuffer"></div>
+      <form id="uploadForm" enctype="multipart/form-data"style = "width: 100%; background-color: #f0f0f0; padding: 25px;">
+        <div class="upload-panel">
+          <a href="View-Assets-Grid.php" class="back-button">← Back</a>
+          <div class="asset-display">
+            <div class="asset-title-card">
+              <?php echo "<h2>".$row["AssetName"]."</h2>" ?>
+              <div id="titleBuffer"></div>
+            </div>
+            <div class="asset-image" style="width: auto; height: 400px; background-color: #ddd; display: flex; align-items: center; justify-content: center; border: 1px solid #bbb;">
+              
+                <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%; width: 100%; padding: 20px;">
+                  <p>Select model to upload:</p>
+                  <label for="fileToUpload" class="custom-file-upload">
+                    +
+                  </label>
+                  <input type="file" accept=".glb,.gltf" name="fileToUpload" id="fileToUpload" class = ".custom-file-upload" style="width: 150px; padding: 10px;-webkit-border-radius: 5px;-moz-border-radius: 5px;border: 1px dashed #BBB;text-align: center;background-color: #DDD;cursor: pointer;">
+                </div>
+                
+              
+            </div>
           </div>
-          <div class="asset-image">
-            <img src="..\Thumbnails\Benchy.jpeg" alt="Benchy 3D Model">
-          </div>
-          <div class="status-label">
-            <h3>Status:</h3>
-            <h3 id="status-text">In Progress</h3>
-          </div>
+          <div class="upload-panel-bottom" style="display: flex; flex-direction: table; align-items: center; justify-content: center; padding: 20px;">
+            
+            <button type="button" id="uploadButton" style="padding: 15px 25px;
+              background-color: #3977B0; /* Primary blue color */
+              color: #fff; /* White text */
+              border: none; /* Remove border */
+              border-radius: 5px; /* Rounded corners */
+              font-size: 16px; /* Adjust font size */
+              font-weight: bold; /* Bold text */
+              cursor: pointer;">Upload Asset</button>
         </div>
-        <div class="asset-details">
-          <div id="left">
-            <p>Uploaded By:</p>
-            <p>Last Uploaded:</p>
-            <p>File Size:</p>
-            <p>Vertex Count:</p>
-          </div>
-          <div id="right">
-            <p><strong>Myles Bradley</strong></p>
-            <p><strong>27/01/2025</strong></p>
-            <p><strong>27 MB</strong></p>
-            <p><strong>112,569</strong></p>
-          </div>
-        </div>
-      </div>
-
-      <div class="right-panel">
-        <form id="uploadForm" enctype="multipart/form-data">
-          <p>Select model to upload:</p>
-          <input type="file" accept=".glb,.gltf" name="fileToUpload" id="fileToUpload">
-          <button type="button" id="uploadButton">Upload Asset</button>
-        </form>
-        <div class="asset-info"><h3>Manager Notes</h3><input type="text"></div>
-        <div class="asset-info"><h3>Asset Description</h3><input type="text"></div>
-        <div class="asset-info"><h3>Tags</h3><input type="text"></div>
-        <div class="actions">
-          <a href="Upload-New-Version.php"><button class="download-btn">Upload</button></a>
-          <button class="download-btn">Download</button>
-        </div>
-        <div class="actions"><button class="delete-btn">Delete</button></div>
-      </div>
+      </form>
     </div>
   </main>
 </body>
@@ -163,6 +163,8 @@ function saveData(file, name, thumbnailDataURL) {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         name: name,
+        //baseID: baseid,
+        //uploader: uploader,
         model: modelBase64,
         thumbnail: thumbnailDataURL
       })

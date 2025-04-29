@@ -69,7 +69,7 @@
                     
                 </tr>";
 
-                while ($row = $result->fetchArray(SQLITE3_ASSOC)) {
+                while ($row = $result->fetchArray(SQLITE3_ASSOC)) {            
                     $AssetID = $row['AssetID'];
                     $Thumbnail = $row['Thumbnail'];
                     $AssetName = $row['AssetName'];
@@ -81,11 +81,11 @@
                     $UploadDate = $row['UploadDate'];
                     $ThumbnailLink = "..\\Thumbnails\\";
                     $ThumbnailLink .=$Thumbnail;
-
                     echo"<tr>
                             <td>$AssetID</td>
-                            <td class='Thumbnail'><img src='$ThumbnailLink' width='100' height='100'></td>
-                            <td>$AssetName</td>
+                            <td class='Thumbnail'>Thumbnail</td>".
+                            //<td class='Thumbnail'><img src='$ThumbnailLink' width='100' height='100'></td>"
+                            "<td>$AssetName</td>
                             <td>$Status</td>
                             <td>$Dimensions</td>
                             <td>$Version</td>

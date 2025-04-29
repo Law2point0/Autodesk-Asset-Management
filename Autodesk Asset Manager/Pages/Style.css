@@ -50,14 +50,14 @@ main {
     height: 650px;
     min-height: 60%;
     max-width: 1200px;
-    margin: 0 auto;
+    margin: 0 20%;
 }
 
 /**--------------left panel----------------**/
 
 .left-panel {
     background-color: #E9E9E9;
-    width: 60%;
+    width: 35%;
     height: 100%;
     padding: 20px;
     border-radius: 3px;
@@ -143,7 +143,7 @@ main {
 /**--------------right panel----------------**/
 .right-panel {
     background-color: #E9E9E9;
-    width: 40%;
+    width: 65%;
     height: 100%;
     margin-left: 20px;
     padding: 20px;
@@ -174,39 +174,33 @@ main {
     margin-top: 20px;
 }
 
-.actions button, .actions a{
+.actions button{
     padding: 10px 15px;
     border: none;
     border-radius: 5px;
     color: white;
-    background-color: #007bff;
+    background-color: #3977B0;
     cursor: pointer;
-    text-align: center;;
+    text-align: center;
 }
 
-.actions .edit-btn, .actions .delete-btn {
-    background-color: #007bff;
 
+.delete-btn{
+    padding: 10px 15px;
+    background-color: rgb(255, 62, 62);
+    border: none;
+    border-radius: 5px;
+    color: white;
+    cursor: pointer;
+    text-align: center;
+}
+
+.delete{
     width: 100%;
+    margin-top: 15px;
 }
 
-.actions .edit-btn {
-    margin-right: 10px;
-}
 
-.actions .delete-btn {
-    background-color: #dc3545;
-}
-
-.actions .download-btn {
-    background-color: #007bff;
-    width: 100%;
-}
-
-.download-btn{
-    justify-content: space-between;
-    max-width: 48%;
-}
 /**!!!!!----------right panel------------!!!!!**/
 
 
@@ -215,6 +209,18 @@ footer {
     height: 50px;
     color: white;
     text-align: center;
+}
+
+/** upload button css **/
+input[type="file"]{
+    display: none;
+}
+
+.custom-file-upload {
+    border: 1px solid #ccc;
+    display: inline-block;
+    padding: 6px 12px;
+    cursor: pointer;
 }
 
 /* ----------------------view assets grid css----------------------- */
