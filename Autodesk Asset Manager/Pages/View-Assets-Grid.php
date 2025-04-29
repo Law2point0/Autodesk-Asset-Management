@@ -167,26 +167,30 @@ $ProjectID = "1";
     <?php
     $db = new SQLite3('Asset-Manager-DB.db');
 
-    $selectQuery = "SELECT 
-    ab.AssetName,
-    a.Thumbnail
+    $selectQuery = "
+    SELECT 
+        ab.AssetName,
+        a.Thumbnail
     FROM 
-      ProjectAssets pa
+        ProjectAssets pa
     JOIN 
-      AssetBase ab ON pa.BaseID = ab.BaseID
+        AssetBase ab ON pa.BaseID = ab.BaseID
     JOIN 
-      Assets a ON a.AssetID = (
-        SELECT AssetID 
-        FROM Assets 
-        WHERE BaseID = pa.BaseID 
-        ORDER BY Version DESC 
-        LIMIT 1
+        Assets a ON a.AssetID = (
+            SELECT AssetID 
+            FROM Assets 
+            WHERE BaseID = pa.BaseID 
+            ORDER BY Version DESC 
+            LIMIT 1
         )
     WHERE 
-      pa.ProjectID = 1
+        pa.ProjectID = :projectID;
     ";
+
+    $stmt = $db->prepare($selectQuery);
+    $stmt->bindValue(':projectID', $ProjectID, SQLITE3_INTEGER); 
+    $result = $stmt->execute();
     
-    $result = $db->query($selectQuery);
     $GalleryDiv = "";
     
     while ($row = $result->fetchArray(SQLITE3_ASSOC)) {
@@ -197,8 +201,6 @@ $ProjectID = "1";
         $base64Image = base64_encode($thumbnailBlob);
         $imgSrc = "data:image/png;base64," . $base64Image;
 
-        echo "<!-- DEBUG THUMBNAIL PATH: ../Thumbnails/{$thumbnail} -->";
-    
         $GalleryDiv .= "
         <div class=\"gallery\">
             <form action=\"\">
@@ -243,19 +245,6 @@ $ProjectID = "1";
   </form>
 </div>
 
-<div class="gallery">
-  <a target="_blank" href="">
-    <img src="" alt="" width="300" height="200">
-  </a>
-  <div class="desc">Day.obj</div>
-</div>
-
-<div class="gallery">
-  <a target="_blank" href="">
-    <img src="" alt="" width="300" height="200">
-  </a>
-  <div class="desc">Hey.obj</div>
-</div>
 
 </div>
 </div>
@@ -265,10 +254,36 @@ $ProjectID = "1";
         <div class="black-project">
           <h3>Project Details</h3>
         </div>
-        <h3>Comments</h3>
-        <input type="text">
+        <h3>List of editors</h3>
+        <?php
+        $db = new SQLite3('Asset-Manager-DB.db');
+
+        $selectQuery = "SELECT UserID FROM Assignment WHERE ProjectID = $ProjectID;";
+        $result = $db->query($selectQuery);
+
+        echo "<ul>";
+
+        while ($row = $result->fetchArray(SQLITE3_ASSOC)) {
+       $queryUserID = $row['UserID'];
+
+        $stmt = $db->prepare("SELECT FName, LName, Email FROM User WHERE UserID = :userid");
+        $stmt->bindValue(':userid', $queryUserID, SQLITE3_INTEGER);
+        $userResult = $stmt->execute();
+
+        if ($userRow = $userResult->fetchArray(SQLITE3_ASSOC)) {
+          $fname = htmlspecialchars($userRow['FName']);
+          $lname = htmlspecialchars($userRow['LName']);
+          $email = htmlspecialchars($userRow['Email']);
+
+         echo "<li>$fname $lname - $email</li>";
+         }
+}
+
+echo "</ul>";
+?>
+
+
         <div class="actions">
-          <button class="submit-btn">Submit</button>
         </div>
 
 
