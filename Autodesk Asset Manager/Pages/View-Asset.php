@@ -15,14 +15,35 @@
     <main>
         <div class="panel-container">
             <div class="left-panel">
-                <a href="View-Assets-Grid.php" class="back-button">← Back</a>
+                <a href="javascript:history.back()" class="back-button">← Back</a>
                 <div class="asset-display">
                     <div class=asset-title-card>
-                        <h2>Benchy 2</h2>
+                        <?php
+                            if (isset($_GET['assetName'])) {
+                                $BaseID = $_GET['assetName'];    
+                                $_SESSION["BaseID"] = $BaseID;
+                                $BaseID = 4;
+                            }
+                            $db = new SQLite3('Asset-Manager-DB.db');
+                            $results = $db->query("SELECT AssetBase.BaseID, AssetBase.AssetName, Assets.Thumbnail 
+                                FROM AssetBase
+                                INNER JOIN Assets ON AssetBase.BaseID = Assets.BaseID
+                                Where AssetBase.BaseID = $BaseID;");
+
+                            $row = $results->fetchArray(SQLITE3_ASSOC);
+                            $thumbnailBlob = $row['Thumbnail'];
+
+                            $base64Image = base64_encode($thumbnailBlob);
+                            $imgSrc = "data:image/png;base64," . $base64Image;
+
+
+                            echo "<h2>'" . $row["AssetName"] . "'</h2>";
+                        ?>
+                        
                         <div id="titleBuffer"></div>
                     </div>
                     <div class="asset-image">
-                        <img src="..\Thumbnails\Benchy.jpeg" alt="Benchy 3D Model">
+                        <?php echo "<img src='$imgSrc' width='100'>"; ?>
                     </div>
                     <div class="status-label">
                         <h3> Status: </h3>
@@ -68,7 +89,9 @@
                 </div>
                 <div class="actions">
                     <a href="Upload-Asset-Version.php"><button class="download-btn">Upload</button></a>
-                    <button class="download-btn">Download</button>   
+                    <a href="download.php?BaseID=<?php echo $row['BaseID']; ?>">
+                        <button class="download-btn">Download</button>
+                    </a>
                 </div>
                 <div class="actions">
                     <button class="delete-btn">Delete</button>
@@ -114,3 +137,4 @@
 </body>
 <footer></footer>
 </html>
+

@@ -47,7 +47,7 @@
       <div class="right-panel">
         <form id="uploadForm" enctype="multipart/form-data">
           <p>Select model to upload:</p>
-          <input type="file" accept=".glb,.gltf,.obj" name="fileToUpload" id="fileToUpload">
+          <input type="file" accept=".glb,.gltf" name="fileToUpload" id="fileToUpload">
           <button type="button" id="uploadButton">Upload Asset</button>
         </form>
         <div class="asset-info"><h3>Manager Notes</h3><input type="text"></div>
