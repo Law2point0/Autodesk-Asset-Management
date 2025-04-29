@@ -85,10 +85,6 @@ if (!isset($_SESSION['UserID'])) {
                                     <button class='submit-btn'>view</button>
                                 </a>                                
                             </td>
-<<<<<<< HEAD
-=======
-                            <td>$ProjectID</td>
->>>>>>> 1e7596b132a47015ff1a8b958177bc08c2298426
                         </tr>";
                 }
                 echo "</table>";

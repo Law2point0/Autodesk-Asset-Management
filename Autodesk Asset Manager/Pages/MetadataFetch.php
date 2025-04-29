@@ -46,11 +46,13 @@
       const input = document.getElementById('modelInput');
       const extractBtn = document.getElementById('extractBtn');
       const saveBtn = document.getElementById('saveBtn');
+      const fileUploadBtn = document.getElementById('fileUploadBtn');
 
       input.addEventListener('change', function (event) {
         selectedFile = event.target.files[0];
         extractBtn.disabled = !selectedFile;
         saveBtn.disabled = true;
+        fileUploadBtn.disabled = !selectedFile;
         storedMetadata = [];
       });
 
@@ -95,24 +97,49 @@
       saveBtn.addEventListener('click', () => {
         if (storedMetadata.length === 0) return;
 
-        fetch('save_metadata.php', {
+          fetch('save_metadata.php', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(storedMetadata)
-        })
-          .then(res => res.json())
-          .then(data => {
-            alert(`Metadata saved to: /assets/${data.file}`);
+          body: JSON.stringify({
+            filename: selectedFile.name,
+            metadata: storedMetadata
           })
-          .catch(err => {
-            console.error(err);
-            alert("Failed to save metadata.");
-          });
+        })
+        .then(res => res.json())
+        .then(data => {
+          alert(`Metadata saved to: /assets/${data.file}`);
+        })
+        .catch(err => {
+          console.error(err);
+          alert("Failed to save metadata.");
+        });
+      });
+
+
+      fileUploadBtn.addEventListener('click', () => {
+        if (!selectedFile) return;
+
+        const formData = new FormData();
+        formData.append('modelFile', selectedFile);
+
+        fetch('upload_file.php', {
+          method: 'POST',
+          body: formData
+        })
+        .then(res => res.json())
+          .then(data => {
+          alert(data.message);
+        })
+        .catch(err => {
+          console.error(err);
+          alert("Failed to upload 3D file.");
+        });
       });
 
       const afterExtract = () => {
         if (storedMetadata.length > 0) {
           saveBtn.disabled = false;
+          fileUploadBtn.disabled = false;
           console.log('Extracted Metadata:', storedMetadata);
           alert('Metadata extracted successfully!');
         } else {
@@ -127,5 +154,6 @@
   <input type="file" id="modelInput" accept=".glb,.gltf,.obj" />
   <button id="extractBtn" disabled>Extract Metadata</button>
   <button id="saveBtn" disabled>Save Metadata</button>
+  <button id="fileUploadBtn" disabled>Upload 3D File</button>
 </body>
 </html>
