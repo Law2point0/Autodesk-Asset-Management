@@ -1,4 +1,7 @@
-<?php session_start() ?>
+<?php session_start();
+$BaseID = $_SESSION["BaseID"];
+
+?>
 
 <!DOCTYPE html>
 <html lang="en">
