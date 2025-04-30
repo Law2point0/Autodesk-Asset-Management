@@ -180,9 +180,11 @@ $ProjectID = $_SESSION['ProjectID'];
     <?php
     $db = new SQLite3('Asset-Manager-DB.db');
 
+
     $selectQuery = "
     SELECT 
         ab.AssetName,
+        ab.BaseID,
         a.Thumbnail
     FROM 
         ProjectAssets pa
@@ -199,6 +201,7 @@ $ProjectID = $_SESSION['ProjectID'];
     WHERE 
         pa.ProjectID = :projectID;
     ";
+    
 
     $stmt = $db->prepare($selectQuery);
     $stmt->bindValue(':projectID', $ProjectID, SQLITE3_INTEGER); 
@@ -208,7 +211,8 @@ $ProjectID = $_SESSION['ProjectID'];
     
     while ($row = $result->fetchArray(SQLITE3_ASSOC)) {
         if (!$row) continue; // skip if empty row
-    
+
+        $BaseID = $row['BaseID'];
         $AssetName = htmlspecialchars($row['AssetName']);
         $thumbnailBlob = $row['Thumbnail'];
         $base64Image = base64_encode($thumbnailBlob);
@@ -216,12 +220,10 @@ $ProjectID = $_SESSION['ProjectID'];
 
         $GalleryDiv .= "
         <div class=\"gallery\">
-            <form action=\"\">
-                <a type=\"submit\" target=\"\" href=\"View-Asset.php?assetName={$AssetName}\">
-                    <img src='$imgSrc' alt=\"{$AssetName}\" width=\"300\" height=\"200\" onerror=\"this.onerror=null; this.src='/Autodesk-Asset-Management/Autodesk Asset Manager/Thumbnails/Benchy.jpeg';\">
-                    <div class=\"desc\">{$AssetName}</div>
-                </a>
-            </form>
+            <a href=\"set-asset-base-id.php?BaseID={$BaseID}\">
+                <img src='$imgSrc' alt=\"{$AssetName}\" width=\"300\" height=\"200\" onerror=\"this.onerror=null; this.src='/Autodesk-Asset-Management/Autodesk Asset Manager/Thumbnails/Benchy.jpeg';\">
+                <div class=\"desc\">{$AssetName}</div>
+            </a>
         </div>
         ";
     }
