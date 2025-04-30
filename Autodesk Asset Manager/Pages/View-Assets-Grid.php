@@ -205,7 +205,7 @@ $ProjectID = "1";
         <div class=\"gallery\">
             <form action=\"\">
                 <a type=\"submit\" target=\"\" href=\"View-Asset.php?assetName={$AssetName}\">
-                    <img src='$imgSrc' alt=\"{$AssetName}\" width=\"300\" height=\"200\">
+                    <img src='$imgSrc' alt=\"{$AssetName}\" width=\"300\" height=\"200\" onerror=\"this.onerror=null; this.src='AC:\xampp\htdocs\Autodesk-Asset-Management\Autodesk Asset Manager\Thumbnails\Benchy.jpeg';\">
                     <div class=\"desc\">{$AssetName}</div>
                 </a>
             </form>
