@@ -18,12 +18,6 @@ $ProjectID = $_SESSION['ProjectID'];
 
 ?>
 
-
-$UserID = $_SESSION['UserID'];
-$AccessLevel = $_SESSION['AccessLevel'];
-$ProjectID = $_SESSION['ProjectID'];
-?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
