@@ -1,9 +1,6 @@
 <?php
 session_start(); 
 
-<?php
-session_start(); 
-
 
 if (!isset($_SESSION['UserID'])) {
   // Redirect back to login page if no session is found or Access is wrong. 
