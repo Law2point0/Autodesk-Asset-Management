@@ -1,8 +1,8 @@
 <?php
     session_start();
 
-    if (isset($_GET['AssetID'])) {
-        $_SESSION['AssetID'] = $_GET['AssetID'];
+    if (isset($_GET['BaseID'])) {
+        $_SESSION['BaseID'] = $_GET['BaseID'];
         header("Location: View-Asset.php");
         exit();
     }

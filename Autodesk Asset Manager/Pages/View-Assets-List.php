@@ -43,7 +43,7 @@
             <div style="overflow-x:auto;">
             <?php
             $db = new SQLITE3('Asset-Manager-DB.db');
-            $UserID = 1;/*$_SESSION['UserID'];*/
+            $UserID = $_SESSION['UserID'];
             $ProjectID = $_SESSION['ProjectID'];
             if ($db) {
                 echo 'db connected successfully';
@@ -85,6 +85,7 @@
                     $UploadDate = $row['UploadDate'];
                     $ThumbnailLink = "..\\Thumbnails\\";
                     $ThumbnailLink .=$Thumbnail;
+                    $BaseID = $row['BaseID'];
                     echo"<tr>
                             <td>$AssetID</td>
                             <td class='Thumbnail'>Thumbnail</td>".
@@ -98,7 +99,7 @@
                             <td>$UploadDate</td>
                             <div class='actions'>
                                 <td> 
-                                    <a href='set-asset-id.php?AssetID=$AssetID'>
+                                    <a href='set-base-id.php?BaseID=$BaseID'>
                                         <button class='submit-btn'> View Asset </button>
                                     </a> 
                                 </td>
