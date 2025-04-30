@@ -194,7 +194,7 @@ $ProjectID = "1";
     $GalleryDiv = "";
     
     while ($row = $result->fetchArray(SQLITE3_ASSOC)) {
-        if (!$row) continue; // skip if empty row
+        if (!$row) continue; 
     
         $AssetName = htmlspecialchars($row['AssetName']);
         $thumbnailBlob = $row['Thumbnail'];
