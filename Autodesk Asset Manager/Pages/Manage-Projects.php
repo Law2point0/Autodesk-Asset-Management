@@ -1,3 +1,6 @@
+<?php
+    session_start();
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -32,6 +35,17 @@
 <body>
     <?php
         include("NavBar.php");
+        $ProjectIDParam = $_SESSION['ProjectID'];
+        $db = new SQLite3('Asset-Manager-DB.db');
+        $stmt= $db->prepare("SELECT * FROM Project WHERE ProjectID = :projectid");
+        $stmt->bindvalue(':projectid', $ProjectIDParam, SQLITE3_INTEGER);
+        $result= $stmt->execute();
+        $row= $result->fetchArray(SQLITE3_ASSOC);
+        $ProjectID= $row['ProjectID'];
+        $ProjectName= $row['ProjectName'];
+        $ProjectDescription= $row['ProjectDescription'];
+        $ProjectManager= $row['ProjectManager'];
+        $db->close();
     ?>
     <main>
     <a href="javascript:history.back()" class="back-button">← Back</a>
@@ -39,14 +53,14 @@
             <div class="main">
                 <div class="centre-panel">
                     <h2>Manage Projects</h2><br>
-                        <form action="#" method="post">
+                        <form action="Manage-Projects-backend.php" method="post">
                         <input type="hidden" id="ProjectID" name="ProjectID"><br>
                         <label for="ProjectName">Project Name</label><br>
-                        <input type="text" id="ProjectName" name="ProjectName" required><br>
+                        <input type="text" id="ProjectName" name="ProjectName" value= <?php echo $ProjectName; ?> placeholder= <?php echo $ProjectName; ?> required><br>
                         <label for="Description">Description</label><br>
-                        <input type="text" id="Description" name="Description"><br>
+                        <input type="text" id="Description" name="Description" value= <?php echo $ProjectDescription; ?> placeholder= <?php echo $ProjectDescription; ?>><br>
                         <label for="ProjectManager">Manager</label><br>
-                        <input type="number" name="ProjectManager" id="ProjectManager"><br>
+                        <input type="number" name="ProjectManager" id="ProjectManager" value= <?php echo $ProjectManager; ?> placeholder= <?php echo $ProjectManager; ?>><br>
                         <button type="submit">Update Project</button>
                         </form>
                 </div>

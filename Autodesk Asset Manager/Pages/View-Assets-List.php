@@ -33,6 +33,10 @@
     <div class="right-lock">
     <button class="upload-button"> Upload </button>
     </div>
+
+    <div class="left-lock">
+    <a href="http://localhost/Autodesk-Asset-Management/Autodesk%20Asset%20Manager/Pages/View-Assets-Grid.php"><button class="upload-button">Switch to grid view</button></a>
+    </div>
     <main>
         <a href="javascript:history.back()" class="back-button">← Back</a>
         <div class="table-container">
@@ -93,7 +97,11 @@
                             <td>$UploadedBy</td>
                             <td>$UploadDate</td>
                             <div class='actions'>
-                                <td> <input class='submit-btn' type='submit' value='View Asset'> <!--<a href='View-Asset.php'> View Asset </a>--> </td>
+                                <td> 
+                                    <a href='set-asset-id.php?AssetID=$AssetID'>
+                                        <button class='submit-btn'> View Asset </button>
+                                    </a> 
+                                </td>
                             </div>
                     </tr>";
                 } 
@@ -101,13 +109,14 @@
             ?>
             </div>
 
-            <div class='right-panel'>
+            <!-- Comments don't work for some reason.-->
+            <!--<div class='right-panel'>
                 <h3>Comments</h3>
                 <input type='text'>
                 <div class='actions'>
                     <button class='submit-btn'>Submit</button>
                 </div>
-                    <?php 
+                    <?php /* 
                     $select_comments = 'SELECT * FROM Comment
                     LEFT JOIN AssetComments ON Comment.CommentID = AssetComments.CommentID;';
                     $comment_result = $db->query($select_comments);
@@ -130,8 +139,8 @@
                             <td>$Date</td>
                     </tr>";
                 } 
-                echo"</table>";
-                    ?>
+                echo"</table>";*/
+                    ?>-->
                     
                 </div>
 
