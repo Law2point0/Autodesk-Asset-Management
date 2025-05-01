@@ -1,4 +1,20 @@
-<?php session_start() ?>
+<?php session_start();
+
+if (!isset($_SESSION['UserID'])) {
+  // Redirect back to login page if no session is found or Access is wrong. 
+  header("Location: http://localhost/Autodesk-Asset-Management/Autodesk%20Asset%20Manager/Pages/Login.php");
+  exit;
+} elseif (!isset($_SESSION['ProjectID'])){
+  header("Location: http://localhost/Autodesk-Asset-Management/Autodesk%20Asset%20Manager/Pages/View-Projects.php");
+  exit;
+} elseif (!isset($_SESSION['BaseID'])) {
+  header("Location: http://localhost/Autodesk-Asset-Management/Autodesk%20Asset%20Manager/Pages/View-Assets-List.php");
+  exit;
+          }
+
+$BaseID = $_SESSION["BaseID"];
+
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -172,4 +188,7 @@
 </body>
 <footer></footer>
 </html>
+<<<<<<< HEAD
 
+=======
+>>>>>>> 44f47b22afd4dd741a5d792f496151cc687019c8

@@ -1,5 +1,14 @@
 <?php
     session_start();
+
+    if (!isset($_SESSION['UserID'])) {
+        // Redirect back to login page if no session is found or Access is wrong. 
+        header("Location: http://localhost/Autodesk-Asset-Management/Autodesk%20Asset%20Manager/Pages/Login.php");
+        exit;
+      } elseif (!isset($_SESSION['ProjectID'])){
+        header("Location: http://localhost/Autodesk-Asset-Management/Autodesk%20Asset%20Manager/Pages/View-Projects.php");
+        exit;
+      };
 ?>
 
 <!DOCTYPE html>
@@ -31,8 +40,9 @@
         include("NavBar.php");
     ?>
     <div class="right-lock">
-    <button class="upload-button"> Upload </button>
+    <a href="Upload-Asset-Version.php"><button class="upload-button"> Upload </button></a>
     </div>
+    <div class="right-lock"> <input type="text" id="searchBox" placeholder="Search by title..."> </div>
 
     <div class="left-lock">
     <a href="http://localhost/Autodesk-Asset-Management/Autodesk%20Asset%20Manager/Pages/View-Assets-Grid.php"><button class="upload-button">Switch to grid view</button></a>
@@ -40,17 +50,16 @@
     <main>
         <a href="javascript:history.back()" class="back-button">← Back</a>
         <div class="table-container">
-            <div style="overflow-x:auto;">
             <?php
             $db = new SQLITE3('Asset-Manager-DB.db');
             $UserID = $_SESSION['UserID'];
             $ProjectID = $_SESSION['ProjectID'];
-            if ($db) {
+            /*if ($db) {
                 echo 'db connected successfully';
             }
             else {
                 echo 'db not connected';
-            }
+            }*/
             $select_query = "SELECT * FROM Assets 
             LEFT JOIN ProjectAssets ON AssetBase.BaseID = ProjectAssets.BaseID
             LEFT JOIN AssetBase ON Assets.BaseID = AssetBase.BaseID
@@ -76,6 +85,8 @@
                 while ($row = $result->fetchArray(SQLITE3_ASSOC)) {            
                     $AssetID = $row['AssetID'];
                     $Thumbnail = $row['Thumbnail'];
+                    $base64Image = base64_encode($Thumbnail);
+                    $imgSrc = "data:image/png;base64," . $base64Image;
                     $AssetName = $row['AssetName'];
                     $Status = $row['Status'];
                     $Dimensions = $row['Dimensions'];
@@ -88,7 +99,7 @@
                     $BaseID = $row['BaseID'];
                     echo"<tr>
                             <td>$AssetID</td>
-                            <td class='Thumbnail'>Thumbnail</td>".
+                            <td><img src='$imgSrc' alt=\"{$AssetName}\" width=\"80\" height=\"80\" onerror=\"this.onerror=null; this.src='/Autodesk-Asset-Management/Autodesk Asset Manager/Thumbnails/Benchy.jpeg';\"></td>".
                             //<td class='Thumbnail'><img src='$ThumbnailLink' width='100' height='100'></td>"
                             "<td>$AssetName</td>
                             <td>$Status</td>
@@ -104,11 +115,32 @@
                                     </a> 
                                 </td>
                             </div>
-                    </tr>";
+                    </tr>
+                    
+                    <script>
+                        document.addEventListener('DOMContentLoaded', () => {
+                        const searchInput = document.getElementById('searchBox');
+                        const galleryItems = document.querySelectorAll('#gallery-container .gallery');
+
+                        searchInput.addEventListener('input', () => {
+                        const searchValue = searchInput.value.toLowerCase();
+
+                        galleryItems.forEach(item => {
+                        const desc = item.querySelector('.desc').textContent.toLowerCase();
+                        if (desc.includes(searchValue)) {
+                            item.style.display = 'inline-block';
+                        } else {
+                            item.style.display = 'none';
+                            }
+                        });
+                        });
+                        });
+                    </script>
+                    ";
                 } 
                 echo"</table>";
             ?>
-            </div>
+            
 
             <!-- Comments don't work for some reason.-->
             <!--<div class='right-panel'>
