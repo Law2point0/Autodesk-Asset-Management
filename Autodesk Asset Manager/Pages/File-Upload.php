@@ -151,7 +151,7 @@
 </head>
 <body>
   <h2>3D Model Metadata Extractor</h2>
-  <input type="file" id="modelInput" accept=".glb,.gltf,.obj" />
+  <input type="file" id="modelInput" accept=".glb,.gltf," />
   <button id="extractBtn" disabled>Extract Metadata</button>
   <button id="saveBtn" disabled>Save Metadata</button>
   <button id="fileUploadBtn" disabled>Upload 3D File</button>
