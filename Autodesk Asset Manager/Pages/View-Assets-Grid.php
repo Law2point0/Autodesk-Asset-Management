@@ -154,6 +154,7 @@ $ProjectID = $_SESSION['ProjectID'];
     ?>
     <div class="right-lock">
     <a href="Autodesk Asset Manager\Pages\Upload-Asset-Version.php"><button class="upload-button"> Upload </button></a>
+    <a href="http://localhost/Autodesk-Asset-Management/Autodesk%20Asset%20Manager/Pages/Manage-Projects.php"><button class="upload-button">Go to Manage project page</button></a>
     </div>
 
     <div class="left-lock">
