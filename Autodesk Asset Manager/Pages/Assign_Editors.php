@@ -23,7 +23,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["assign_editor"])) {
     } catch (Exception $e) {
     die("Connection failed: " . $e->getMessage());
     }
-    } ?>
+    } 
 
 
 if (isset($_GET["remove_id"])) {
