@@ -40,7 +40,7 @@
         include("NavBar.php");
     ?>
     <div class="right-lock">
-    <a href="Upload-Asset-Version.php"><button class="upload-button"> Upload </button></a>
+    <a href="Upload-New-Asset.php"><button class="upload-button"> Upload </button></a>
     </div>
     <div class="right-lock"> <input type="text" id="searchBox" placeholder="Search by title..."> </div>
 
@@ -60,10 +60,24 @@
             else {
                 echo 'db not connected';
             }*/
-            $select_query = "SELECT * FROM Assets 
-            LEFT JOIN ProjectAssets ON AssetBase.BaseID = ProjectAssets.BaseID
-            LEFT JOIN AssetBase ON Assets.BaseID = AssetBase.BaseID
-            WHERE ProjectAssets.ProjectID = $ProjectID;";
+            $select_query = "SELECT 
+            ab.AssetName,
+            ab.BaseID,
+            a.*
+        FROM 
+            ProjectAssets pa
+        JOIN 
+            AssetBase ab ON pa.BaseID = ab.BaseID
+        JOIN 
+            Assets a ON a.AssetID = (
+                SELECT AssetID 
+                FROM Assets 
+                WHERE BaseID = pa.BaseID 
+                ORDER BY Version DESC 
+                LIMIT 1
+            )
+        WHERE 
+            pa.ProjectID = $ProjectID;";
             $result = $db->query($select_query);
 
             echo"

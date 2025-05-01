@@ -153,7 +153,7 @@ $ProjectID = $_SESSION['ProjectID'];
         include("NavBar.php");
     ?>
     <div class="right-lock">
-    <a href="Autodesk Asset Manager\Pages\Upload-Asset-Version.php"><button class="upload-button"> Upload </button></a>
+    <a href="Upload-New-Asset.php"><button class="upload-button"> Upload </button></a>
     </div>
 
     <div class="left-lock">
@@ -251,14 +251,6 @@ $ProjectID = $_SESSION['ProjectID'];
   });
   </script>
 
-<div class="gallery">
-  <form action="">
-    <a type= "submit" target="" href="View-Asset.php?BaseID=1">
-    <img src="..\Thumbnails\Benchy.jpeg" alt="Benchy 3D Model" width="300" height="200">
-    <div class="desc">Benchy 2.obj</div>
-    </a>
-  </form>
-</div>
 
 
 </div>

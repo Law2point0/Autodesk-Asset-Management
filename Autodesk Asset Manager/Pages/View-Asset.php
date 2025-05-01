@@ -44,7 +44,9 @@ $BaseID = $_SESSION["BaseID"];
                             $results = $db->query("SELECT AssetBase.BaseID, AssetBase.AssetName, Assets.Thumbnail, AssetBase.AssetDescription
                                 FROM AssetBase
                                 INNER JOIN Assets ON AssetBase.BaseID = Assets.BaseID
-                                Where AssetBase.BaseID = $BaseID;");
+                                WHERE AssetBase.BaseID = $BaseID
+                                ORDER BY Assets.AssetID DESC
+                                LIMIT 1;");
 
                             $row = $results->fetchArray(SQLITE3_ASSOC);
                             $thumbnailBlob = $row['Thumbnail'];
@@ -94,7 +96,14 @@ $BaseID = $_SESSION["BaseID"];
                     </div>
                     <p class="description-header"><strong>Description:</strong></p>
                     <div class="description-box">
-                        <p><?php echo htmlspecialchars($description); ?></p>
+                        <?php if ($_SESSION["AccessLevel"] == "Admin" || $_SESSION["AccessLevel"] == "Manager") { ?>
+                            <form method="POST" action="Edit-Description.php">
+                                <textarea name="description" class="description-edit" required><?php echo htmlspecialchars($description); ?></textarea>
+                                <button type="submit" class="edit-btn">Save Changes</button>
+                            </form>
+                        <?php } else { ?>
+                            <p><?php echo htmlspecialchars($description); ?></p>
+                        <?php } ?>
                     </div>
                 </div>
                 <div class="comments-section">
@@ -108,6 +117,7 @@ $BaseID = $_SESSION["BaseID"];
                                     JOIN User u ON c.UserID = u.UserID
                                     WHERE ac.BaseID = $BaseID;";
                             $commentsResult = $db->query($commentsQuery);
+                            
                             ?>
                             <div class="scrollable-comments">
                                 <?php
@@ -123,6 +133,7 @@ $BaseID = $_SESSION["BaseID"];
                                     echo "</div>";
                                     echo "</div>";
                                 }
+                                $db->close();
                                 ?>
                             </div>
                         <form method="POST" action="Comment-Submission.php">
@@ -162,24 +173,30 @@ $BaseID = $_SESSION["BaseID"];
                     //;  
                     //print_r($_SESSION);
                     $db = new SQLite3('Asset-Manager-DB.db');
-                    $query = "SELECT * FROM Assets Where BaseID = '$BaseID'";
+                    $query = "SELECT User.UserID, User.FName, User.LName, Assets.UploadDate
+                        FROM Assets
+                        JOIN User ON Assets.Uploader = User.UserID
+                        WHERE Assets.BaseID = $BaseID";
                     $result = $db->query($query);
 
                     //echo($result);
 
-                    echo"<table class='Asset-History-tb'>";
-                    echo"<tr> <th>Date</th> <th>User</th> <th>Action</th> </tr>";
+                    echo "<table>
+                    <tr>
+                        <th>User ID</th>
+                        <th>User</th>
+                        <th>Upload Date</th>
+                    </tr>";
 
-                    while($row = $result->fetchArray(SQLITE3_ASSOC)){
-                        $uploadDate = $row["UploadDate"];
-                        $uploader = $row["Uploader"];
-
+                    while ($row = $result->fetchArray(SQLITE3_ASSOC)) {
                         echo "<tr>
-                                <td>$uploadDate</td>
-                                <td>$uploader</td>
-                            </tr>";
+                            <td>{$row['UserID']}</td>
+                            <td>{$row['FName']} {$row['LName']}</td>
+                            <td>{$row['UploadDate']}</td>
+                        </tr>";
                     }
-                    echo"</table>";
+
+                    echo "</table>";
                     $db->close();
                 ?>
             </div>
@@ -188,7 +205,3 @@ $BaseID = $_SESSION["BaseID"];
 </body>
 <footer></footer>
 </html>
-<<<<<<< HEAD
-
-=======
->>>>>>> 44f47b22afd4dd741a5d792f496151cc687019c8
