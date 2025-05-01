@@ -1,5 +1,12 @@
 <?php
     session_start();
+
+if (!isset($_SESSION['UserID'])) {
+  // Redirect back to login page if no session is found or Access is wrong. 
+  header("Location: http://localhost/Autodesk-Asset-Management/Autodesk%20Asset%20Manager/Pages/Login.php");
+  exit;
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
