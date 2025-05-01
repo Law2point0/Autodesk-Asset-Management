@@ -50,14 +50,14 @@ main {
     height: 650px;
     min-height: 60%;
     max-width: 1200px;
-    margin: 0 auto;
+    margin: 0 20%;
 }
 
 /**--------------left panel----------------**/
 
 .left-panel {
     background-color: #E9E9E9;
-    width: 60%;
+    width: 35%;
     height: 100%;
     padding: 20px;
     border-radius: 3px;
@@ -143,7 +143,7 @@ main {
 /**--------------right panel----------------**/
 .right-panel {
     background-color: #E9E9E9;
-    width: 40%;
+    width: 65%;
     height: 100%;
     margin-left: 20px;
     padding: 20px;
@@ -156,8 +156,14 @@ main {
 }
 
 .asset-info h3 {
-    font-size: 16px;
-    margin-bottom: 5px;
+    font-size: 24px;
+    color: white;
+}
+
+.asset-info-header {
+    padding: 5px 10px 5px 10px;
+    margin-top: 30px;
+    background-color: #262626;
 }
 
 .asset-info input {
@@ -168,45 +174,141 @@ main {
     border-radius: 4px;
 }
 
+.description-header{
+
+    padding: 5px;
+    background-color: #3977B0;
+}
+
+.description-box {
+    height: 150px; 
+    min-height: 150px; 
+    max-height: 150px; 
+    overflow-y: auto; 
+    border: 1px solid #262626; 
+    padding: 10px; 
+    background-color: #f9f9f9; 
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1); 
+}
+
 .actions {
     display: flex;
     justify-content: space-between;
     margin-top: 20px;
 }
 
-.actions button, .actions a{
+.actions button{
     padding: 10px 15px;
     border: none;
     border-radius: 5px;
     color: white;
-    background-color: #007bff;
+    background-color: #3977B0;
     cursor: pointer;
-    text-align: center;;
+    text-align: center;
 }
 
-.actions .edit-btn, .actions .delete-btn {
-    background-color: #007bff;
 
+.delete-btn{
+    padding: 10px 15px;
+    background-color: rgb(255, 62, 62);
+    border: none;
+    border-radius: 5px;
+    color: white;
+    cursor: pointer;
+    text-align: center;
+}
+
+.delete{
     width: 100%;
+    margin-top: 15px;
 }
 
-.actions .edit-btn {
-    margin-right: 10px;
+.scrollable-comments {
+    min-height: 150px;
+    max-height: 150px;
+    overflow-y: auto;
+    border: 1px solid #ccc;
+    padding: 5px;
+    background-color: #f9f9f9;
 }
 
-.actions .delete-btn {
-    background-color: #dc3545;
+.comment {
+    margin-bottom: 3px; /* Add spacing between comments */
+    padding: 5px;
+    border-bottom: 1px solid #ddd; /* Optional: Add a separator between comments */
 }
 
-.actions .download-btn {
-    background-color: #007bff;
-    width: 100%;
+.comment-header {
+    display: flex;
+    justify-content: space-between; /* Align User Name and Date on opposite sides */
+    align-items: center;
+    margin-bottom: 5px; /* Add spacing between the header and the comment body */
 }
 
-.download-btn{
+.comment-header p {
+    margin: 0; /* Remove default margin */
+    font-size: 0.9em; /* Optional: Adjust font size */
+    color: #555; /* Optional: Subtle color for the header text */
+}
+
+.comment-header strong {
+    color: #3977B0; /* Optional: Highlight the user's name */
+}
+
+.comment-date {
+    font-size: 0.8em;
+    color: #888; /* Optional: Subtle color for the date */
+}
+
+.comment-body {
+    margin-top: 2px; /* Add spacing above the comment text */
+    font-size: 1em;
+    color: #333; /* Optional: Darker color for the comment text */
+    word-wrap: break-word; /* Break long words onto the next line */
+    overflow-wrap: break-word; /* Ensures text wraps properly in all browsers */
+    white-space: normal;
+}
+
+.custom-file-upload {
+    border: 1px solid #ccc;
+    display: inline-block;
+    padding: 6px 12px;
+    cursor: pointer;
+}
+
+.comment-input-container {
+    display: flex;
     justify-content: space-between;
-    max-width: 48%;
+    align-items: center;
+    width: 100%; /* Ensure it takes the full width of the container */
+    margin-top: 15px; /* Optional: Add spacing above the input container */
 }
+
+.comment-input {
+    width: 68%; /* Input box takes 70% of the container */
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+.comment-btn {
+    width: 28%; /* Button takes 30% of the container */
+    padding: 10px;
+    background-color: #3977B0;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    text-align: center;
+}
+
+.comment-btn:hover {
+    background-color: #0056b3; /* Optional: Add hover effect */
+}
+
+
 /**!!!!!----------right panel------------!!!!!**/
 
 
@@ -216,6 +318,13 @@ footer {
     color: white;
     text-align: center;
 }
+
+/** upload button css **/
+input[type="file"]{
+    display: none;
+}
+
+
 
 /* ----------------------view assets grid css----------------------- */
 
