@@ -26,18 +26,14 @@ if (isset($data['model'], $data['thumbnail'], $data['name'])) {
     );");
 
     $stmt = $db->prepare("INSERT INTO Assets ( AssetFile, BaseID, Uploader, UploadDate, Status, Thumbnail) VALUES (:AssetFile, :BaseID, :Uploader, :UploadDate, :Status, :thumbnail)");
-    $stmt->bindValue(':BaseID', $_SESSION["BaseID"], SQLITE3_BLOB);
-    $stmt->bindValue(':Uploader', $_SESSION["UserID"], SQLITE3_BLOB);
+    $stmt->bindValue(':BaseID', $_SESSION["BaseID"], SQLITE3_INTEGER);
+    $stmt->bindValue(':Uploader', $_SESSION["UserID"], SQLITE3_INTEGER);
     $stmt->bindValue(':UploadDate', date('Y-m-d H:i:s'), SQLITE3_TEXT);
     $stmt->bindValue(':AssetFile', $modelData, SQLITE3_BLOB);
     $stmt->bindValue(':thumbnail', $thumbnailData, SQLITE3_BLOB);
     $stmt->bindValue(':Status', 'Pending', SQLITE3_TEXT);
     $stmt->execute();
 
-    $db->exec("CREATE TABLE IF NOT EXISTS AssetBase (
-        BaseID INTEGER,
-        AssetName TEXT
-    );");
 
     $stmt = $db->prepare("INSERT INTO AssetBase (AssetName, BaseID) VALUES (:AssetName, :BaseID)");
     $stmt->bindValue(':BaseID', $_SESSION["BaseID"], SQLITE3_BLOB);
