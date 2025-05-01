@@ -1,4 +1,20 @@
-<?php session_start() ?>
+<?php session_start();
+
+if (!isset($_SESSION['UserID'])) {
+  // Redirect back to login page if no session is found or Access is wrong. 
+  header("Location: http://localhost/Autodesk-Asset-Management/Autodesk%20Asset%20Manager/Pages/Login.php");
+  exit;
+} elseif (!isset($_SESSION['ProjectID'])){
+  header("Location: http://localhost/Autodesk-Asset-Management/Autodesk%20Asset%20Manager/Pages/View-Projects.php");
+  exit;
+} elseif (!isset($_SESSION['BaseID'])) {
+  header("Location: http://localhost/Autodesk-Asset-Management/Autodesk%20Asset%20Manager/Pages/View-Assets-List.php");
+  exit;
+          }
+
+$BaseID = $_SESSION["BaseID"];
+
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -15,14 +31,36 @@
     <main>
         <div class="panel-container">
             <div class="left-panel">
-                <a href="View-Assets-Grid.php" class="back-button">← Back</a>
-                <div class="asset-display">
+                <a href="javascript:history.back()" class="back-button">← Back</a>
+                <div class="asset-display" max-width="100%">
                     <div class=asset-title-card>
-                        <h2>Benchy 2</h2>
+                        <?php
+                            if (isset($_SESSION["BaseID"])) {
+                                //$BaseID = $_GET['assetName'];    
+                                $BaseID = $_SESSION["BaseID"];                         
+                            }               
+                            //$BaseID = 8;
+                            $db = new SQLite3('Asset-Manager-DB.db');
+                            $results = $db->query("SELECT AssetBase.BaseID, AssetBase.AssetName, Assets.Thumbnail, AssetBase.AssetDescription
+                                FROM AssetBase
+                                INNER JOIN Assets ON AssetBase.BaseID = Assets.BaseID
+                                Where AssetBase.BaseID = $BaseID;");
+
+                            $row = $results->fetchArray(SQLITE3_ASSOC);
+                            $thumbnailBlob = $row['Thumbnail'];
+                            $description = $row['AssetDescription'];
+
+                            $base64Image = base64_encode($thumbnailBlob);
+                            $imgSrc = "data:image/png;base64," . $base64Image;
+
+
+                            echo "<h2>" . $row["AssetName"] . "</h2>";
+                        ?>
+                        
                         <div id="titleBuffer"></div>
                     </div>
                     <div class="asset-image">
-                        <img src="..\Thumbnails\Benchy.jpeg" alt="Benchy 3D Model">
+                        <?php echo "<img src='$imgSrc' style='max-width: 100%'>"; ?>
                     </div>
                     <div class="status-label">
                         <h3> Status: </h3>
@@ -51,27 +89,63 @@
 
             <div class="right-panel">
                 <div class="asset-info">
-                    <h3>Asset Details</h3>
-                    <input type="text">
+                    <div class="asset-info-header">
+                        <h3>Asset Details</h3>
+                    </div>
+                    <p class="description-header"><strong>Description:</strong></p>
+                    <div class="description-box">
+                        <p><?php echo htmlspecialchars($description); ?></p>
+                    </div>
                 </div>
-                <div class="asset-info">
-                    <h3>Manager Notes</h3>
-                    <input type="text">
-                </div>
-                <div class="asset-info">
-                    <h3>Asset Description</h3>
-                    <input type="text">
-                </div>
-                <div class="asset-info">
-                    <h3>Tags</h3>
-                    <input type="text">
+                <div class="comments-section">
+                    <h3>Comments</h3>            
+                    <div class="comments-list">
+                        <?php
+                            // Fetch and display comments for the current asset
+                            $commentsQuery = "SELECT c.CommentID, c.UserID, c.Comment, c.Date, u.FName, u.LName
+                                    FROM AssetComments ac
+                                    JOIN Comment c ON ac.CommentID = c.CommentID
+                                    JOIN User u ON c.UserID = u.UserID
+                                    WHERE ac.BaseID = $BaseID;";
+                            $commentsResult = $db->query($commentsQuery);
+                            ?>
+                            <div class="scrollable-comments">
+                                <?php
+                                while ($commentRow = $commentsResult->fetchArray(SQLITE3_ASSOC)) {
+                                    echo "<div class='comment'>";
+                                    echo "<div class='comment-header'>";
+                                    echo "<p><strong>" . htmlspecialchars($commentRow['FName']) . " " . htmlspecialchars($commentRow['LName']) . "</strong> (#" . htmlspecialchars($commentRow['UserID']) . ")</p>";
+                                    echo "<p class='comment-date'>" . htmlspecialchars($commentRow['Date']) . "</p>";
+                                    echo "</div>";
+
+                                    echo "<div class='comment-body'>";
+                                    echo "<p>" . htmlspecialchars($commentRow['Comment']) . "</p>";
+                                    echo "</div>";
+                                    echo "</div>";
+                                }
+                                ?>
+                            </div>
+                        <form method="POST" action="Comment-Submission.php">
+                            <div class="comment-input-container">
+                                <textarea class="comment-input"name="comment" placeholder="Write your comment here..." required></textarea>
+                                <button class = "comment-btn"type="submit" name="submitComment">Post Comment</button>
+                            </div>
+                        </form>
+                    </div>
                 </div>
                 <div class="actions">
                     <a href="Upload-Asset-Version.php"><button class="download-btn">Upload</button></a>
-                    <button class="download-btn">Download</button>   
+                    <a href="download.php?BaseID=<?php echo $row['BaseID']; ?>">
+                        <button class="download-btn">Download</button>
+                    </a>
                 </div>
-                <div class="actions">
-                    <button class="delete-btn">Delete</button>
+                <div class="delete">
+                    <?php 
+                        $_SESSION["AccessLevel"];
+                        if($_SESSION["AccessLevel"] == "Admin" || $_SESSION["AccessLevel"] == "Manager"){
+                            echo "<a href='Delete-Asset.php?BaseID=$BaseID'><button class='delete-btn'>Delete</button></a>";
+                        };
+                    ?>
                 </div>
             </div>
         </div>
@@ -114,3 +188,7 @@
 </body>
 <footer></footer>
 </html>
+<<<<<<< HEAD
+
+=======
+>>>>>>> 44f47b22afd4dd741a5d792f496151cc687019c8

@@ -1,6 +1,14 @@
 <?php
 session_start();
 $db = new SQLite3('Autodesk database_2.db');
+
+session_start();
+if (!isset($_SESSION['UserID']) || $_SESSION['AccessLevel'] !== "Admin") {
+    // Redirect back to login page if no session is found or Access is wrong. Replace the "Admin" with whatever is appropriate for the page.
+    header("Location: http://localhost/Autodesk-Asset-Management/Autodesk%20Asset%20Manager/Pages/Login.php");
+    exit;
+}
+
 $totalProjects = $db->querySingle("SELECT COUNT(*) FROM projects");
 $completedProjects = $db->querySingle("SELECT COUNT(*) FROM projects WHERE status = 'completed'");
 ?>
@@ -43,7 +51,7 @@ body { padding: 2rem; }
 <div class="card-body d-flex flex-column justify-content-between">
 <h5 class="card-title">Assign managers</h5>
 <p class="card-text">View, add, edit, and assign a manager.</p>
-<a href="Assign_Manager.php" class="btn btn-primary mt-3">Assign manager</a>
+<a href="Assign_Managers.php" class="btn btn-primary mt-3">Assign manager</a>
 </div>
 </div>
 </div>
